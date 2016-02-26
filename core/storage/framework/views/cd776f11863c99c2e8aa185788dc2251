@@ -1,0 +1,24 @@
+<ul class="nav nav-tabs" style="margin-bottom:10px;">
+  <li <?php if($active == 'config'): ?> class="active" <?php endif; ?> ><a href="<?php echo e(URL::to('spnet/module/config/'.$module_name)); ?>">Info</a></li>
+  <li <?php if($active == 'sql'): ?> class="active" <?php endif; ?> >
+  <?php if(isset($type) && $type =='generic'): ?>
+
+  <?php else: ?>
+  <a href="<?php echo e(URL::to('spnet/module/sql/'.$module_name)); ?>">SQL</a></li>
+  <li <?php if($active == 'table'): ?> class="active" <?php endif; ?> >
+  <a href="<?php echo e(URL::to('spnet/module/table/'.$module_name)); ?>">Table</a></li>
+  <li <?php if($active == 'form'): ?> class="active" <?php endif; ?> >
+  <a href="<?php echo e(URL::to('spnet/module/form/'.$module_name)); ?>">Form</a></li>
+  <li <?php if($active == 'sub'): ?> class="active" <?php endif; ?> >
+  <a href="<?php echo e(URL::to('spnet/module/sub/'.$module_name)); ?>">Master Detail</a></li>
+  <?php endif; ?>
+  <li <?php if($active == 'permission'): ?> class="active" <?php endif; ?> >
+  <a href="<?php echo e(URL::to('spnet/module/permission/'.$module_name)); ?>">Permission</a></li>
+   <li <?php if($active == 'rebuild'): ?> class="active" <?php endif; ?> >
+
+    <?php if(isset($type) && $type =='generic'): ?>
+
+    <?php else: ?>
+   <a href="javascript://ajax" onclick="SpnetModal('<?php echo e(URL::to('spnet/module/build/'.$module_name)); ?>','Rebuild Module ')">Rebuild</a></li>
+   <?php endif; ?>
+</ul>
