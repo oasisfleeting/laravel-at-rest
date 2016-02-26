@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 
-use App\Models\Listing;
 use Illuminate\Console\Command;
 
 
@@ -51,9 +50,10 @@ class ParseListings extends Command {
 		$listings            = simplexml_load_string( $url );
 		$this->xmlNamespaces = $listings->getDocNamespaces( true );
 		$xmlns               = array_shift( $this->xmlNamespaces );
-		$attributes = array();
+		$attributes          = array();
 		$attributes['table'] = 'listings';
-		$spModel             = new Listing();
+		$spListing           = new \App\Models\Listing();
+		$spListingPhoto      = new \App\Models\Listingsphotos();
 		$list                = array();
 		$i                   = 0;
 		foreach ( $listings as $listing ) {
@@ -82,18 +82,21 @@ class ParseListings extends Command {
 
 
 			//$list[ $i ]['createdOn'] = date( 'Y-m-d G:i:s', time() );
-			$spModel->insertRow($list[$i],0);
+			$list[ $i ]['listingId'] = $spListing->insertRow( $list[ $i ], 0 );
+			$list[ $i ]['Photos']    = $this->xml_values( $listing->Photos->children(), $xmlns );
 
-			$list[ $i ]['Photos']       = $this->xml_values( $listing->Photos->children(), $xmlns );
-
-
-
-
-
+			$photos = array();
+			//this is unneccessary for the xml given, but I assume eventually there will be non public photos?
+			foreach ( $list[ $i ]['Photos'] as $accessKey => $val ) {
+				for ( $j = 0; $j < count( $val ); $j ++ ) {
+					//public
+					$photos              = $val[ $j ];
+					$photos['listingId'] = $list[ $i ]['listingId'];
+					$photos['Public']    = $accessKey === 'Public' ? 1 : 0;
+					$photoId = $spListingPhoto->insertRow($photos,0);
+				}
+			}
 			$i ++;
-
-
-			break;
 		}
 
 
