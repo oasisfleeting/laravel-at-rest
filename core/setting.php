@@ -1,6 +1,6 @@
 <?php 
-define('CNF_APPNAME','Restful api for parsing real estate applications');
-define('CNF_APPDESC','Restful api for parsing real estate applications');
+define('CNF_APPNAME','Restful api for parsing MLS Data');
+define('CNF_APPDESC','Restful api for parsing MLS Data');
 define('CNF_COMNAME','silicon-prairie.net');
 define('CNF_EMAIL','lyle@silicon-prairie.net');
 define('CNF_METAKEY','SNT Media Job Application , Lyle Mcclanahan Silicon-prairie.net  , Laravel-at-rest');

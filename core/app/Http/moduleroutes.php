@@ -1,4 +1,4 @@
 <?php
-        Route::controller('listing', 'ListingController');
-                    Route::controller('listingsphotos', 'ListingsphotosController');
-                    ?>
+Route::controller( 'listing', 'ListingController' );
+Route::controller( 'listingsphotos', 'ListingsphotosController' );
+?>

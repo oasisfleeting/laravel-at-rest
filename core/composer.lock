@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eefbe89d59b30e47a1390066b476393a",
-    "content-hash": "b874f19e2502b2d77713012ccc9ff5ca",
+    "hash": "058d6f5986e05a9ee5588848e09a1000",
+    "content-hash": "ac5ef938fd7be83f951af1f7f9ace362",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1673,6 +1673,46 @@
             "time": "2015-12-18 07:43:08"
         },
         {
+            "name": "osedea/laravel-rest",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Osedea/laravel-rest.git",
+                "reference": "6d28b49d7e87b71fba326e22e27b4d516ebd2eaa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Osedea/laravel-rest/zipball/6d28b49d7e87b71fba326e22e27b4d516ebd2eaa",
+                "reference": "6d28b49d7e87b71fba326e22e27b4d516ebd2eaa",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Osedea\\LaravelRest\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Osedea",
+                    "email": "info@osedea.com"
+                }
+            ],
+            "description": "A bundle providing a RESTful API for the Laravel framework version 5 using the command bus.",
+            "keywords": [
+                "api",
+                "command bus",
+                "laravel",
+                "rest"
+            ],
+            "time": "2015-06-12 15:23:20"
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v1.2.0",
             "source": {
@@ -2908,6 +2948,53 @@
                 "environment"
             ],
             "time": "2015-05-30 15:59:26"
+        },
+        {
+            "name": "wellrested/wellrested",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wellrestedphp/wellrested.git",
+                "reference": "db7aaa2688b8a839da45612b2a206fceaf06b392"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wellrestedphp/wellrested/zipball/db7aaa2688b8a839da45612b2a206fceaf06b392",
+                "reference": "db7aaa2688b8a839da45612b2a206fceaf06b392",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "psr/http-message": "~1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WellRESTed\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PJ Dietz",
+                    "email": "pjdietz@gmail.com"
+                }
+            ],
+            "description": "Simple PHP Library for RESTful APIs",
+            "homepage": "https://github.com/pjdietz/wellrested",
+            "keywords": [
+                "api",
+                "http",
+                "rest",
+                "restful"
+            ],
+            "time": "2015-11-09 00:31:43"
         }
     ],
     "packages-dev": [

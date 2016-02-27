@@ -3,23 +3,30 @@
         <div class="row m-b-lg animated fadeInDown delayp1">
             <div class="col-lg-12 text-center">
                 <div class="navy-line"></div>
-                <h1>Contact Us</h1>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <h1>Lyle Mcclanahan</h1>
+                <h2>Kiss Expert</h2>
+                <p>Keep It Simple Stupid</p>
+                <p>{{ Illuminate\Foundation\Inspiring::quote() }}</p>
                 <hr />
             </div>
         </div>
         <div class="row m-b-lg ">
             <div class="col-lg-3 col-lg-offset-3 animated fadeInLeft delayp1">
                 <address>
-                    <strong><span class="navy">Company name, Inc.</span></strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
+                    <strong><span class="navy">Seeking Employment</span></strong><br>
+                    .... East 51st South<br>
+                    Wichita, Kansas 67216<br>
+                    <abbr title="Phone">P:</abbr> (316) JDK-HTML (535-4865)
+                    <br/>
+                    <abbr title="Phone">P:</abbr> (316) 202-8274
                 </address>
             </div>
             <div class="col-lg-4 animated fadeInRight delayp1">
                 <p class="text-color">
-                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Aut eaque, totam corporis laboriosam veritatis quis ad perspiciatis  </p>
+                Everything is developed. <br/>
+                Simple things are developed well.
+
+                </p>
             </div>
         </div>
 		
@@ -49,9 +56,6 @@
                             <label for="subject" class="sr-only">Email</label> 
                               {!! Form::text('subject', null,array('class'=>'form-control', 'placeholder'=>'Subject:', 'required'=>'true email'   )) !!} 
                         </div><!--//form-group-->
-
-
-
                         <div class="form-group message">
                             <label for="message" class="sr-only">Message</label>
                             {!! Form::textarea('message',null,array('class'=>'form-control', 'placeholder'=>'Message:', 'required'=>'true'   )) !!}		                           
@@ -63,25 +67,6 @@
             </div><!--//row-->
 		
         <div class="row">
-            <div class="col-lg-12 text-center">
-
-                <p class="m-t-sm">
-                    Or follow us on social platform
-                </p>
-                <ul class="list-inline social-icon">
-                    <li><a href="#"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg animated fadeInUp delayp1">
-                <p><strong>&copy; 2015 Company Name</strong><br> consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-            </div>
         </div>
     </div>
 </section>

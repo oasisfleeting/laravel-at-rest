@@ -1,0 +1,22 @@
+<?php $__env->startSection('content'); ?>
+  <div class="page-content row">
+    <!-- Page header -->
+    <div class="page-header">
+      <div class="page-title">
+        <h3> <?php echo e($pageTitle); ?> <small><?php echo e($pageNote); ?></small></h3>
+      </div>
+
+      <ul class="breadcrumb">
+        <li><a href="<?php echo e(URL::to('dashboard')); ?>"> Dashboard </a></li>
+        <li class="active"><?php echo e($pageTitle); ?></li>
+      </ul>	  
+	  
+    </div>
+
+    <div class="page-content-wrapper m-t">	
+
+    </div>
+
+	
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

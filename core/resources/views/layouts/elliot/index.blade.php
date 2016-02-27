@@ -79,21 +79,20 @@
     </div>
   </header>     
    
-  <!-- Start dinamyc page -->
+
    @include($pages)
-  <!-- End dinamyc page -->
+
 
   <footer class="footer">
     <div class="container">
       <div class="row">
          <div class="col-md-5">
-             <p> Copyright &copy; 2015 {{ CNF_APPNAME }} . ALL Rights Reserved</p>
-             <a href="#"> Term of Use </a> / <a href="#"> Privacy Policy </a>
+             <p> {{ CNF_APPNAME }}</p>
          </div>
          <div class="col-md-7 text-right">
 
             <div class="fright clearfix">
-              <a class="social-icon si-small si-borderless si-facebook" href="#">
+              <a class="social-icon si-small si-borderless si-facebook" href="https://www.facebook.com/Silicon-PrairieNet-705617042853104/" target="_blank">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-square fa-stack-2x"></i>
                   <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
@@ -101,14 +100,14 @@
 
               </a>
 
-              <a class="social-icon si-small si-borderless si-twitter" href="#">
+              <a class="social-icon si-small si-borderless si-twitter" href="https://twitter.com/prairiedev" target="_blank">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-square fa-stack-2x"></i>
                   <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                 </span>
               </a>
 
-              <a class="social-icon si-small si-borderless si-gplus" href="#">
+              <a class="social-icon si-small si-borderless si-gplus" href="https://plus.google.com/108049501613502409636/about" target="_blank">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-square fa-stack-2x"></i>
                   <i class="fa fa-google fa-stack-1x fa-inverse"></i>
@@ -116,35 +115,15 @@
 
               </a>
 
-              <a class="social-icon si-small si-borderless si-pinterest" href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fa fa-square fa-stack-2x"></i>
-                  <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-
-              <a class="social-icon si-small si-borderless si-vimeo" href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fa fa-square fa-stack-2x"></i>
-                  <i class="fa fa-vimeo-square fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-
-              <a class="social-icon si-small si-borderless si-github" href="#">
+              <a class="social-icon si-small si-borderless si-github" href="https://github.com/oasisfleeting" target="_blank">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-square fa-stack-2x"></i>
                   <i class="fa fa-github fa-stack-1x fa-inverse"></i>
                 </span>
               </a>
 
-              <a class="social-icon si-small si-borderless si-yahoo" href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fa fa-square fa-stack-2x"></i>
-                  <i class="fa fa-yahoo fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
 
-              <a class="social-icon si-small si-borderless si-linkedin" href="#">
+              <a class="social-icon si-small si-borderless si-linkedin" href="https://www.linkedin.com/in/lylemcclanahan" target="_blank">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-square fa-stack-2x"></i>
                   <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
@@ -161,6 +140,6 @@
       </div>
     </div>    
   </footer>
-
+<script type="text/javascript">(function(){document.write('<a style="display:block;overflow:hidden;z-index:9999;position:absolute;top:0;left:0;" href="http://siliconprairiebuilt.com/" target="_blank"><img src="http://siliconprairiebuilt.com/build.php?i=corner-orange-lg.png&s=' + window.location.host + '" /></a>');})();</script>
   </body>
 </html>
