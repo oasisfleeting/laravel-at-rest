@@ -1,4 +1,4 @@
-<section class="slider" >
+<section class="slider">
 <div class="container">
 	<div class="row">
 		<div class="col-md-7">
@@ -13,8 +13,16 @@
 			</div>	
 		</div>
 		
-		<div class="col-md-5">
-
+		<div id="consolewrapper" class="col-md-5">
+            <div class="container">
+                <div class="console">
+                    <div class="line white">Welcome to cssConsole! Type help for command list.</div>
+                </div>
+                <div class="bottom">
+                    <div class="label"></div>
+                    <div id="input"></div>
+                </div>
+            </div>
 		</div>
 	</div>
 </div>
@@ -25,9 +33,9 @@
 <div class="social-buttons">
   <div class="container">
     <ul class="list-inline">
-        <span class="btn-danger btn-lg fa fa-anchor spacing"> Lyle Mcclanahan </span>
+        <span class="btn-danger btn-lg spacing"> Lyle Mcclanahan <i class="fa fa-anchor">&nbsp;</i></span>
         <span>&nbsp;&nbsp;</span>
-        <span class="btn-danger btn-lg fa fa-anchor span5"> Silicon-Prairie.Net </span>
+        <span class="btn-danger btn-lg span5"><i class="fa fa-anchor">&nbsp;</i> Silicon-Prairie.Net </span>
     </ul>
   </div>
 </div>

@@ -12,52 +12,49 @@
 */
 
 
+Route::get( '/', 'HomeController@index' );
+Route::controller( 'home', 'HomeController' );
+
+Route::controller( '/user', 'UserController' );
+include( 'pageroutes.php' );
+include( 'moduleroutes.php' );
+
+Route::get( '/restric', function () {
+
+	return view( 'errors.blocked' );
+
+} );
+
+Route::resource( 'spnetapi', 'SpnetapiController' );
+Route::resource( 'artisan', 'ArtisanController' );
+
+Route::group( [ 'middleware' => 'auth' ], function () {
+
+	Route::get( 'core/elfinder', 'Core\ElfinderController@getIndex' );
+	Route::post( 'core/elfinder', 'Core\ElfinderController@getIndex' );
+	Route::controller( '/dashboard', 'DashboardController' );
+	Route::controllers( [
+		'core/users'    => 'Core\UsersController',
+		'notification'  => 'NotificationController',
+		'core/logs'     => 'Core\LogsController',
+		'core/pages'    => 'Core\PagesController',
+		'core/groups'   => 'Core\GroupsController',
+		'core/template' => 'Core\TemplateController',
+	] );
+
+} );
+
+Route::group( [ 'middleware' => 'auth', 'middleware' => 'spnetauth' ], function () {
+
+	Route::controllers( [
+		'spnet/menu'   => 'Spnet\MenuController',
+		'spnet/config' => 'Spnet\ConfigController',
+		'spnet/module' => 'Spnet\ModuleController',
+		'spnet/tables' => 'Spnet\TablesController'
+	] );
 
 
-Route::get('/', 'HomeController@index');
-Route::controller('home', 'HomeController');
-
-Route::controller('/user', 'UserController');
-include('pageroutes.php');
-include('moduleroutes.php');
-
-Route::get('/restric',function(){
-
-	return view('errors.blocked');
-
-});
-
-Route::resource('spnetapi', 'SpnetapiController');
-Route::group(['middleware' => 'auth'], function()
-{
-
-	Route::get('core/elfinder', 'Core\ElfinderController@getIndex');
-	Route::post('core/elfinder', 'Core\ElfinderController@getIndex'); 
-	Route::controller('/dashboard', 'DashboardController');
-	Route::controllers([
-		'core/users'		=> 'Core\UsersController',
-		'notification'		=> 'NotificationController',
-		'core/logs'			=> 'Core\LogsController',
-		'core/pages' 		=> 'Core\PagesController',
-		'core/groups' 		=> 'Core\GroupsController',
-		'core/template' 	=> 'Core\TemplateController',
-	]);
-
-});	
-
-Route::group(['middleware' => 'auth' , 'middleware'=>'spnetauth'], function()
-{
-
-	Route::controllers([
-		'spnet/menu'		=> 'Spnet\MenuController',
-		'spnet/config' 		=> 'Spnet\ConfigController',
-		'spnet/module' 		=> 'Spnet\ModuleController',
-		'spnet/tables'		=> 'Spnet\TablesController'
-	]);			
-
-
-
-});
+} );
 
 
 

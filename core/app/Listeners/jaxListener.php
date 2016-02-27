@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\SomeEvent;
+use App\Events\jaxEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EventListener
+class jaxListener
 {
     /**
      * Create the event listener.
@@ -21,12 +21,11 @@ class EventListener
     /**
      * Handle the event.
      *
-     * @param  SomeEvent  $event
+     * @param  jaxEvent  $event
      * @return void
      */
-    public function handle(SomeEvent $event)
+    public function handle(jaxEvent $event)
     {
         //
-        shell_exec('php ../../artisan');
     }
 }

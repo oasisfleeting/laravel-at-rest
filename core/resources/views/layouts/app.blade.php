@@ -23,6 +23,7 @@
 		<link href="{{ asset('spnet/js/plugins/fancybox/jquery.fancybox.css') }}" rel="stylesheet">
 		<link href="{{ asset('spnet/js/plugins/markitup/skins/simple/style.css') }}" rel="stylesheet">
 		<link href="{{ asset('spnet/js/plugins/markitup/sets/default/style.css') }}" rel="stylesheet">
+		<link href="{{ asset('spnet/js/plugins/markitup/sets/default/style.css') }}" rel="stylesheet">
 			
 		<link href="{{ asset('spnet/css/animate.css')}}" rel="stylesheet">
 		<link href="{{ asset('spnet/css/icons.min.css')}}" rel="stylesheet">
@@ -55,6 +56,7 @@
 		<script type="text/javascript" src="{{ asset('spnet/js/simpleclone.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('spnet/js/plugins/markitup/jquery.markitup.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('spnet/js/plugins/markitup/sets/default/set.js') }}"></script>
+
 		
 		<!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>

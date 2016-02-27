@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "058d6f5986e05a9ee5588848e09a1000",
-    "content-hash": "ac5ef938fd7be83f951af1f7f9ace362",
+    "hash": "b358bcf147fc6ef76f7f019e6d129fd7",
+    "content-hash": "9bf2a9d364dd88d710cd051a650e6794",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1340,6 +1340,54 @@
                 "twitter"
             ],
             "time": "2015-10-23 04:02:07"
+        },
+        {
+            "name": "mdwheele/fortune",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mdwheele/fortune.git",
+                "reference": "4a190f39d99603e813ffc0260efb72fccb9f8a47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mdwheele/fortune/zipball/4a190f39d99603e813ffc0260efb72fccb9f8a47",
+                "reference": "4a190f39d99603e813ffc0260efb72fccb9f8a47",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "*",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Wheeler\\Fortune": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dustin Wheeler",
+                    "email": "mdwheele@ncsu.edu",
+                    "homepage": "http://www.dustinwheeler.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A fortune-teller for PHP.",
+            "homepage": "http://github.com/mdwheele/fortune",
+            "keywords": [
+                "fortune",
+                "fun",
+                "funny"
+            ],
+            "time": "2013-07-20 04:26:16"
         },
         {
             "name": "mews/captcha",
@@ -4388,16 +4436,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.3.3",
+            "version": "1.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "6e7133793a8e5a5714a551a8324337374be209df"
+                "reference": "dc7a29032cf72b54f36dac15a1ca5b3a1b6029bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6e7133793a8e5a5714a551a8324337374be209df",
-                "reference": "6e7133793a8e5a5714a551a8324337374be209df",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/dc7a29032cf72b54f36dac15a1ca5b3a1b6029bf",
+                "reference": "dc7a29032cf72b54f36dac15a1ca5b3a1b6029bf",
                 "shasum": ""
             },
             "require": {
@@ -4434,7 +4482,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2015-12-02 08:37:27"
+            "time": "2016-02-26 18:40:46"
         },
         {
             "name": "sebastian/exporter",
@@ -4746,7 +4794,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "preemiere/laravel-ide-helper": 20
+        "preemiere/laravel-ide-helper": 20,
+        "mdwheele/fortune": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

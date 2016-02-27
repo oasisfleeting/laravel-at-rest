@@ -26,5 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('inspire')->everyFiveMinutes();
+        $schedule->command('parselistings')->cron('0 */2 * * *');
+
     }
 }

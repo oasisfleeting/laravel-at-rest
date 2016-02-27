@@ -12,7 +12,7 @@ define('CNF_LANG','en');
 define('CNF_REGIST','false');
 define('CNF_FRONT','true');
 define('CNF_RECAPTCHA','false');
-define('CNF_THEME','elliot');
+define('CNF_THEME','snt');
 define('CNF_RECAPTCHAPUBLICKEY','');
 define('CNF_RECAPTCHAPRIVATEKEY','');
 define('CNF_MODE','production');

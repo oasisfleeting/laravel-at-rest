@@ -15,7 +15,8 @@
         "orchestra/parser": "~3.0",
         "bocharsky-bw/arrayzy": "^0.5.1",
         "wellrested/wellrested": "3.0.1",
-        "osedea/laravel-rest": "v0.2.1"
+        "osedea/laravel-rest": "v0.2.1",
+        "mdwheele/fortune": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
