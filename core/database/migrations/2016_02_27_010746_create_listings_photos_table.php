@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateListingsPhotosTable extends Migration {
@@ -10,11 +11,11 @@ class CreateListingsPhotosTable extends Migration {
 	 */
 	public function up() {
 		Schema::create( 'listings_photos', function ( Blueprint $table ) {
-			$table->string( 'id' );
-			$table->string( 'Public' );
-			$table->string( 'MediaModificationTimestamp' );
+			$table->increments( 'id' );
+			$table->enum( 'Public',array(1,0) );
+			$table->timestamp('MediaModificationTimestamp' );
 			$table->string( 'MediaURL' );
-			$table->string( 'listingId' );
+			$table->integer( 'listingId' );
 		} );
 	}
 
