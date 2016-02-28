@@ -1,13 +1,14 @@
-<?php  
- 
-class ZipHelpers  {
+<?php
 
-	var $zipdata	= '';
-	var $directory	= '';
-	var $entries	= 0;
-	var $file_num	= 0;
-	var $offset		= 0;
-	var $now;
+class ZipHelpers
+{
+
+	public $zipdata = '';
+	public $directory = '';
+	public $entries = 0;
+	public $file_num = 0;
+	public $offset = 0;
+	public $now;
 
 	/**
 	 * Constructor
@@ -26,15 +27,17 @@ class ZipHelpers  {
 	 *
 	 * Lets you add a virtual directory into which you can place files.
 	 *
-	 * @access	public
-	 * @param	mixed	the directory name. Can be string or array
-	 * @return	void
+	 * @access    public
+	 *
+	 * @param    mixed    the directory name. Can be string or array
+	 *
+	 * @return    void
 	 */
-	function add_dir($directory)
+	public function add_dir($directory)
 	{
-		foreach ((array)$directory as $dir)
+		foreach ((array) $directory as $dir)
 		{
-			if ( ! preg_match("|.+/$|", $dir))
+			if (!preg_match("|.+/$|", $dir))
 			{
 				$dir .= '/';
 			}
@@ -48,14 +51,15 @@ class ZipHelpers  {
 	// --------------------------------------------------------------------
 
 	/**
-	 *	Get file/directory modification time
+	 *    Get file/directory modification time
 	 *
-	 *	If this is a newly created file/dir, we will set the time to 'now'
+	 *    If this is a newly created file/dir, we will set the time to 'now'
 	 *
-	 *	@param string	path to file
-	 *	@return array	filemtime/filemdate
+	 * @param string    path to file
+	 *
+	 * @return array    filemtime/filemdate
 	 */
-	function _get_mod_time($dir)
+	public function _get_mod_time($dir)
 	{
 		// filemtime() will return false, but it does raise an error.
 		$date = (@filemtime($dir)) ? filemtime($dir) : getdate($this->now);
@@ -71,44 +75,37 @@ class ZipHelpers  {
 	/**
 	 * Add Directory
 	 *
-	 * @access	private
-	 * @param	string	the directory name
-	 * @return	void
+	 * @access    private
+	 *
+	 * @param    string    the directory name
+	 *
+	 * @return    void
 	 */
-	function _add_dir($dir, $file_mtime, $file_mdate)
+	public function _add_dir($dir, $file_mtime, $file_mdate)
 	{
 		$dir = str_replace("\\", "/", $dir);
 
-		$this->zipdata .=
-			"\x50\x4b\x03\x04\x0a\x00\x00\x00\x00\x00"
-			.pack('v', $file_mtime)
-			.pack('v', $file_mdate)
-			.pack('V', 0) // crc32
-			.pack('V', 0) // compressed filesize
-			.pack('V', 0) // uncompressed filesize
-			.pack('v', strlen($dir)) // length of pathname
-			.pack('v', 0) // extra field length
-			.$dir
-			// below is "data descriptor" segment
-			.pack('V', 0) // crc32
-			.pack('V', 0) // compressed filesize
-			.pack('V', 0); // uncompressed filesize
+		$this->zipdata .= "\x50\x4b\x03\x04\x0a\x00\x00\x00\x00\x00" . pack('v', $file_mtime) . pack('v', $file_mdate) . pack('V', 0) // crc32
+			. pack('V', 0) // compressed filesize
+			. pack('V', 0) // uncompressed filesize
+			. pack('v', strlen($dir)) // length of pathname
+			. pack('v', 0) // extra field length
+			. $dir // below is "data descriptor" segment
+			. pack('V', 0) // crc32
+			. pack('V', 0) // compressed filesize
+			. pack('V', 0); // uncompressed filesize
 
-		$this->directory .=
-			"\x50\x4b\x01\x02\x00\x00\x0a\x00\x00\x00\x00\x00"
-			.pack('v', $file_mtime)
-			.pack('v', $file_mdate)
-			.pack('V',0) // crc32
-			.pack('V',0) // compressed filesize
-			.pack('V',0) // uncompressed filesize
-			.pack('v', strlen($dir)) // length of pathname
-			.pack('v', 0) // extra field length
-			.pack('v', 0) // file comment length
-			.pack('v', 0) // disk number start
-			.pack('v', 0) // internal file attributes
-			.pack('V', 16) // external file attributes - 'directory' bit set
-			.pack('V', $this->offset) // relative offset of local header
-			.$dir;
+		$this->directory .= "\x50\x4b\x01\x02\x00\x00\x0a\x00\x00\x00\x00\x00" . pack('v', $file_mtime) . pack('v', $file_mdate) . pack('V', 0) // crc32
+			. pack('V', 0) // compressed filesize
+			. pack('V', 0) // uncompressed filesize
+			. pack('v', strlen($dir)) // length of pathname
+			. pack('v', 0) // extra field length
+			. pack('v', 0) // file comment length
+			. pack('v', 0) // disk number start
+			. pack('v', 0) // internal file attributes
+			. pack('V', 16) // external file attributes - 'directory' bit set
+			. pack('V', $this->offset) // relative offset of local header
+			. $dir;
 
 		$this->offset = strlen($this->zipdata);
 		$this->entries++;
@@ -123,12 +120,14 @@ class ZipHelpers  {
 	 * in the filename it will be placed within a directory.  Make
 	 * sure you use add_dir() first to create the folder.
 	 *
-	 * @access	public
-	 * @param	mixed
-	 * @param	string
-	 * @return	void
+	 * @access    public
+	 *
+	 * @param    mixed
+	 * @param    string
+	 *
+	 * @return    void
 	 */
-	function add_data($filepath, $data = NULL)
+	public function add_data($filepath, $data = null)
 	{
 		if (is_array($filepath))
 		{
@@ -152,49 +151,36 @@ class ZipHelpers  {
 	/**
 	 * Add Data to Zip
 	 *
-	 * @access	private
-	 * @param	string	the file name/path
-	 * @param	string	the data to be encoded
-	 * @return	void
+	 * @access    private
+	 *
+	 * @param    string    the file name/path
+	 * @param    string    the data to be encoded
+	 *
+	 * @return    void
 	 */
-	function _add_data($filepath, $data, $file_mtime, $file_mdate)
+	public function _add_data($filepath, $data, $file_mtime, $file_mdate)
 	{
 		$filepath = str_replace("\\", "/", $filepath);
 
 		$uncompressed_size = strlen($data);
-		$crc32  = crc32($data);
+		$crc32             = crc32($data);
 
-		$gzdata = gzcompress($data);
-		$gzdata = substr($gzdata, 2, -4);
+		$gzdata          = gzcompress($data);
+		$gzdata          = substr($gzdata, 2, -4);
 		$compressed_size = strlen($gzdata);
 
-		$this->zipdata .=
-			"\x50\x4b\x03\x04\x14\x00\x00\x00\x08\x00"
-			.pack('v', $file_mtime)
-			.pack('v', $file_mdate)
-			.pack('V', $crc32)
-			.pack('V', $compressed_size)
-			.pack('V', $uncompressed_size)
-			.pack('v', strlen($filepath)) // length of filename
-			.pack('v', 0) // extra field length
-			.$filepath
-			.$gzdata; // "file data" segment
+		$this->zipdata .= "\x50\x4b\x03\x04\x14\x00\x00\x00\x08\x00" . pack('v', $file_mtime) . pack('v', $file_mdate) . pack('V', $crc32) . pack('V', $compressed_size) . pack('V', $uncompressed_size) . pack('v', strlen($filepath)) // length of filename
+			. pack('v', 0) // extra field length
+			. $filepath . $gzdata; // "file data" segment
 
-		$this->directory .=
-			"\x50\x4b\x01\x02\x00\x00\x14\x00\x00\x00\x08\x00"
-			.pack('v', $file_mtime)
-			.pack('v', $file_mdate)
-			.pack('V', $crc32)
-			.pack('V', $compressed_size)
-			.pack('V', $uncompressed_size)
-			.pack('v', strlen($filepath)) // length of filename
-			.pack('v', 0) // extra field length
-			.pack('v', 0) // file comment length
-			.pack('v', 0) // disk number start
-			.pack('v', 0) // internal file attributes
-			.pack('V', 32) // external file attributes - 'archive' bit set
-			.pack('V', $this->offset) // relative offset of local header
-			.$filepath;
+		$this->directory .= "\x50\x4b\x01\x02\x00\x00\x14\x00\x00\x00\x08\x00" . pack('v', $file_mtime) . pack('v', $file_mdate) . pack('V', $crc32) . pack('V', $compressed_size) . pack('V', $uncompressed_size) . pack('v', strlen($filepath)) // length of filename
+			. pack('v', 0) // extra field length
+			. pack('v', 0) // file comment length
+			. pack('v', 0) // disk number start
+			. pack('v', 0) // internal file attributes
+			. pack('V', 32) // external file attributes - 'archive' bit set
+			. pack('V', $this->offset) // relative offset of local header
+			. $filepath;
 
 		$this->offset = strlen($this->zipdata);
 		$this->entries++;
@@ -206,29 +192,31 @@ class ZipHelpers  {
 	/**
 	 * Read the contents of a file and add it to the zip
 	 *
-	 * @access	public
-	 * @return	bool
+	 * @access    public
+	 * @return    bool
 	 */
-	function read_file($path, $preserve_filepath = FALSE)
+	public function read_file($path, $preserve_filepath = false)
 	{
-		if ( ! file_exists($path))
+		if (!file_exists($path))
 		{
-			return FALSE;
+			return false;
 		}
 
-		if (FALSE !== ($data = file_get_contents($path)))
+		if (false !== ($data = file_get_contents($path)))
 		{
 			$name = str_replace("\\", "/", $path);
 
-			if ($preserve_filepath === FALSE)
+			if ($preserve_filepath === false)
 			{
 				$name = preg_replace("|.*/(.+)|", "\\1", $name);
 			}
 
 			$this->add_data($name, $data);
-			return TRUE;
+
+			return true;
 		}
-		return FALSE;
+
+		return false;
 	}
 
 	// ------------------------------------------------------------------------
@@ -236,55 +224,57 @@ class ZipHelpers  {
 	/**
 	 * Read a directory and add it to the zip.
 	 *
-	 * This function recursively reads a folder and everything it contains (including
+	 * This public function recursively reads a folder and everything it contains (including
 	 * sub-folders) and creates a zip based on it.  Whatever directory structure
 	 * is in the original file path will be recreated in the zip file.
 	 *
-	 * @access	public
-	 * @param	string	path to source
-	 * @return	bool
+	 * @access    public
+	 *
+	 * @param    string    path to source
+	 *
+	 * @return    bool
 	 */
-	function read_dir($path, $preserve_filepath = TRUE, $root_path = NULL)
+	public function read_dir($path, $preserve_filepath = true, $root_path = null)
 	{
-		if ( ! $fp = @opendir($path))
+		if (!$fp = @opendir($path))
 		{
-			return FALSE;
+			return false;
 		}
 
 		// Set the original directory root for child dir's to use as relative
-		if ($root_path === NULL)
+		if ($root_path === null)
 		{
-			$root_path = dirname($path).'/';
+			$root_path = dirname($path) . '/';
 		}
 
-		while (FALSE !== ($file = readdir($fp)))
+		while (false !== ($file = readdir($fp)))
 		{
 			if (substr($file, 0, 1) == '.')
 			{
 				continue;
 			}
 
-			if (@is_dir($path.$file))
+			if (@is_dir($path . $file))
 			{
-				$this->read_dir($path.$file."/", $preserve_filepath, $root_path);
+				$this->read_dir($path . $file . "/", $preserve_filepath, $root_path);
 			}
 			else
 			{
-				if (FALSE !== ($data = file_get_contents($path.$file)))
+				if (false !== ($data = file_get_contents($path . $file)))
 				{
 					$name = str_replace("\\", "/", $path);
 
-					if ($preserve_filepath === FALSE)
+					if ($preserve_filepath === false)
 					{
 						$name = str_replace($root_path, '', $name);
 					}
 
-					$this->add_data($name.$file, $data);
+					$this->add_data($name . $file, $data);
 				}
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------
@@ -292,19 +282,19 @@ class ZipHelpers  {
 	/**
 	 * Get the Zip file
 	 *
-	 * @access	public
-	 * @return	binary string
+	 * @access    public
+	 * @return    binary string
 	 */
-	function get_zip()
+	public function get_zip()
 	{
 		// Is there any data to return?
 		if ($this->entries == 0)
 		{
-			return FALSE;
+			return false;
 		}
 
 		$zip_data = $this->zipdata;
-		$zip_data .= $this->directory."\x50\x4b\x05\x06\x00\x00\x00\x00";
+		$zip_data .= $this->directory . "\x50\x4b\x05\x06\x00\x00\x00\x00";
 		$zip_data .= pack('v', $this->entries); // total # of entries "on this disk"
 		$zip_data .= pack('v', $this->entries); // total # of entries overall
 		$zip_data .= pack('V', strlen($this->directory)); // size of central dir
@@ -321,15 +311,17 @@ class ZipHelpers  {
 	 *
 	 * Lets you write a file
 	 *
-	 * @access	public
-	 * @param	string	the file name
-	 * @return	bool
+	 * @access    public
+	 *
+	 * @param    string    the file name
+	 *
+	 * @return    bool
 	 */
-	function archive($filepath)
+	public function archive($filepath)
 	{
-		if ( ! ($fp = @fopen($filepath, 'wb')))
+		if (!($fp = @fopen($filepath, 'wb')))
 		{
-			return FALSE;
+			return false;
 		}
 
 		flock($fp, LOCK_EX);
@@ -337,7 +329,7 @@ class ZipHelpers  {
 		flock($fp, LOCK_UN);
 		fclose($fp);
 
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------
@@ -345,14 +337,16 @@ class ZipHelpers  {
 	/**
 	 * Download
 	 *
-	 * @access	public
-	 * @param	string	the file name
-	 * @param	string	the data to be encoded
-	 * @return	bool
+	 * @access    public
+	 *
+	 * @param    string    the file name
+	 * @param    string    the data to be encoded
+	 *
+	 * @return    bool
 	 */
-	function download($filename = 'backup.zip')
+	public function download($filename = 'backup.zip')
 	{
-		if ( ! preg_match("|.+?\.zip$|", $filename))
+		if (!preg_match("|.+?\.zip$|", $filename))
 		{
 			$filename .= '.zip';
 		}
@@ -375,56 +369,58 @@ class ZipHelpers  {
 	 * Lets you clear current zip data.  Useful if you need to create
 	 * multiple zips with different data.
 	 *
-	 * @access	public
-	 * @return	void
+	 * @access    public
+	 * @return    void
 	 */
-	function clear_data()
+	public function clear_data()
 	{
-		$this->zipdata		= '';
-		$this->directory	= '';
-		$this->entries		= 0;
-		$this->file_num		= 0;
-		$this->offset		= 0;
+		$this->zipdata   = '';
+		$this->directory = '';
+		$this->entries   = 0;
+		$this->file_num  = 0;
+		$this->offset    = 0;
 	}
 
-    /**
-     * Read a directory and add it to the zip using the new filepath set.
-     *
-     * This function recursively reads a folder and everything it contains (including
-     * sub-folders) and creates a zip based on it.  You must specify the new directory structure.
-     * The original structure is thrown out.
-     *
-     * @access  public
-     * @param   string  path to source
-     * @param   string  new directory structure
-     */
-    function get_files_from_folder($directory, $put_into, $recursion = true) 
-    {
-        if ($handle = opendir($directory)) 
-        {
-            while (false !== ($file = readdir($handle))) 
-            {
-                if (is_file($directory.$file)) 
-                {
-                    $fileContents = file_get_contents($directory.$file);
+	/**
+	 * Read a directory and add it to the zip using the new filepath set.
+	 *
+	 * This public function recursively reads a folder and everything it contains (including
+	 * sub-folders) and creates a zip based on it.  You must specify the new directory structure.
+	 * The original structure is thrown out.
+	 *
+	 * @access  public
+	 *
+	 * @param   string  path to source
+	 * @param   string  new directory structure
+	 */
+	public function get_files_from_folder($directory, $put_into, $recursion = true)
+	{
+		if ($handle = opendir($directory))
+		{
+			while (false !== ($file = readdir($handle)))
+			{
+				if (is_file($directory . $file))
+				{
+					$fileContents = file_get_contents($directory . $file);
 
-                    $this->add_data($put_into.$file, $fileContents);
+					$this->add_data($put_into . $file, $fileContents);
 
-                } 
+				}
 
-                elseif ($recursion and $file != '.' and $file != '..' and is_dir($directory.$file)) {
+				elseif ($recursion and $file != '.' and $file != '..' and is_dir($directory . $file))
+				{
 
-                    $this->add_dir($put_into.$file.'/');
+					$this->add_dir($put_into . $file . '/');
 
-                    $this->get_files_from_folder($directory.$file.'/', $put_into.$file.'/', $recursion);
-                }
+					$this->get_files_from_folder($directory . $file . '/', $put_into . $file . '/', $recursion);
+				}
 
-            }//end while
+			}//end while
 
-        }//end if
+		}//end if
 
-        closedir($handle);
-    }
+		closedir($handle);
+	}
 
 }
 

@@ -47,8 +47,7 @@
             //height: '',
 
             // Message to be shown when the terminal is first 
-            welcome:'<div class="welcome-message"><h2 id="BackendCodingChallenge-Summary">Summary</h2><p>This coding challenge has two parts. First, you will be creating a job that parses and consumes an XML feed of real estate data. Secondly, you will create a small RESTful API to query and update the data. This is not a pass or fail challenge. We simply want to see what you are capable of. Your submission is evaluated on the following:</p><h4 id="BackendCodingChallenge-Criteria">Criteria</h4><ul><li>Coding standards</li><li>Object Oriented Design Principals</li><li>Efficiency / Scalability</li><li>Practicality</li></ul><h2 id="BackendCodingChallenge-Instructions">Instructions</h2><ul><li>You will need to use the Laravel MVC framework to complete this challenge</li><li>Create a job in the task scheduler that consumes the attached XML data of real estate listings<ul><li>Create a MySQL database schema based on the XML structure</li><li>Parse the XML and insert data into the MySQL database</li></ul></li><li>Create 3 RESTful API endpoints<ul><li>First endpoint should deliver a full listing of all the data</li><li>Second endpoint should deliver paged data with filter options<ul><li>ascending / descending by ListPrice</li><li>return photos only</li><li>ascending / descending by ListingDate</li></ul></li><li>Third endpoint should toggle / update a listings Active flag</li></ul></li></ul><h2 id="BackendCodingChallenge-Requirements">Requirements</h2><ul><li>Laravel MVC Framework</li><li>Endpoints should return JSON</li><li>Include a DDL for the Database or use Laravels Migrations <\/li> <li>The job should be configured to run once a day at 2:00am EST<\/li><li>Submit project via Github<\/li> <\/ul></div>',
-
+            welcome:'',
             // The password placeholder symbol
             placeholder: '*',
 
@@ -74,7 +73,7 @@
             enctype: 'multipart/form-data',
 
             // Autofocus on input on load
-            autofocus: true,
+            autofocus: true
         };
     };
 

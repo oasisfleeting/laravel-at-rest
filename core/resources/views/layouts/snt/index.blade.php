@@ -58,21 +58,6 @@
                         </ul>
                     </li>
                 @endif
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> My Account
-                        <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        @if(!Auth::check())
-                            <li><a href="{{ url('user/login')}}">Sign In</a></li>
-                            <li><a href="{{ url('user/register')}}">Sign Up</a></li>
-                        @else
-                            <li><a href="{{ url('dashboard')}}"><i class="fa fa-desktop"></i> Dashboard</a></li>
-                            <li><a href="{{ url('user/profile')}}"><i class="fa fa-user"></i> My Account</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="{{ url('user/logout')}}">Logout</a></li>
-                        @endif
-                    </ul>
-                </li>
             </ul>
         </nav>
     </div>
@@ -87,34 +72,34 @@
             <div class="col-md-7 text-right">
                 <div class="fright clearfix">
                     <a class="social-icon si-small si-borderless si-facebook" href="https://www.facebook.com/Silicon-PrairieNet-705617042853104/" target="_blank">
-<span class="fa-stack fa-lg">
-<i class="fa fa-square fa-stack-2x"></i>
-<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-</span>
+                        <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
                     </a>
                     <a class="social-icon si-small si-borderless si-twitter" href="https://twitter.com/prairiedev" target="_blank">
-<span class="fa-stack fa-lg">
-<i class="fa fa-square fa-stack-2x"></i>
-<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-</span>
+                        <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
                     </a>
                     <a class="social-icon si-small si-borderless si-gplus" href="https://plus.google.com/108049501613502409636/about" target="_blank">
-<span class="fa-stack fa-lg">
-<i class="fa fa-square fa-stack-2x"></i>
-<i class="fa fa-google fa-stack-1x fa-inverse"></i>
-</span>
+                        <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
                     </a>
                     <a class="social-icon si-small si-borderless si-github" href="https://github.com/oasisfleeting" target="_blank">
-<span class="fa-stack fa-lg">
-<i class="fa fa-square fa-stack-2x"></i>
-<i class="fa fa-github fa-stack-1x fa-inverse"></i>
-</span>
+                        <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
                     </a>
                     <a class="social-icon si-small si-borderless si-linkedin" href="https://www.linkedin.com/in/lylemcclanahan" target="_blank">
-<span class="fa-stack fa-lg">
-<i class="fa fa-square fa-stack-2x"></i>
-<i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-</span>
+                        <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
                     </a>
                 </div>
                 <div class="clear"></div>
@@ -128,33 +113,68 @@
     $(document).ready(function () {
         /* Start Ptty terminal */
         $('#terminal').Ptty();
-        $.register_command(
-                'about',
-                'Tells you a little about the Ptty jQuery Pulgin.',
-                'about [no options]',
-                function () {
-                    var about ='';
 
 
-                    return {
-                        type: 'print',
-                        out : about
-                    };
-                }
-        );
+            var rest_api = [{
+                cmd_name        : 'parselistings',
+                cmd_description : 'Parses and consumes an XML feed of real estate data.',
+                cmd_usage       : 'parselistings',
+                cmd_url         : '/artisan/parselistings'
+            },
+            {
+                cmd_name        : 'fetch:all',
+                cmd_description : 'Gets a kitty pic from API. Try a number from 01 to 10.',
+                cmd_usage       : 'kittyget [01 to 10]',
+                cmd_url         : '/listings/all'
+            },
+            {
+                cmd_name        : 'fetch:paged',
+                cmd_description : 'Fetched paged data with filter options.',
+                cmd_usage       : 'fetchpaged',
+                cmd_url         : '/listing/paged'
+            },
+            {
+                cmd_name        : 'toggle',
+                cmd_description : 'Toggle a listings Public flag',
+                cmd_usage       : 'toggle [1-5]',
+                cmd_url         : '/listing/toggle'
+            }];
+
+        for (var i = rest_api.length - 1; i >= 0; i--) {
+            $.register_command(
+                    rest_api[i].cmd_name,
+                    rest_api[i].cmd_description,
+                    rest_api[i].cmd_usage,
+                    rest_api[i].cmd_url
+            );
+        }
+//        $.register_command(
+//                'about',
+//                'Tells you a little about the Ptty jQuery Pulgin.',
+//                'about [no options]',
+//                function () {
+//                    var about = '';
+//
+//
+//                    return {
+//                        type: 'print',
+//                        out : about
+//                    };
+//                }
+//        );
         /* Register Commands and Callbacks*/
-        $.register_command(
-                'date',
-                'returns the current date',
-                'date [no options]',
-                function () {
-                    var now = new Date();
-                    return {
-                        type: 'print',
-                        out : now + ' '
-                    };
-                }
-        );
+//        $.register_command(
+//                'date',
+//                'returns the current date',
+//                'date [no options]',
+//                function () {
+//                    var now = new Date();
+//                    return {
+//                        type: 'print',
+//                        out : now + ' '
+//                    };
+//                }
+//        );
         $.register_command(
                 'type', // Unicode PS1
                 'Subcommand example.',
