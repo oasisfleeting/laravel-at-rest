@@ -95,7 +95,7 @@ $('#_datetimepicker1').datetimepicker({
  }},
 timepicker:false,
 format:'d.m.Y'
-    });;;;;
+    });;;
     })
 </script>
 
