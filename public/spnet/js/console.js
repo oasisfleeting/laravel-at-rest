@@ -27,7 +27,7 @@
             url: window.location.pathname,
 
             // The HTTP Method that must be used for Ajax Requests
-            method: 'POST',
+            method: 'GET',
 
             // The GET/POST parameter that should be used to make requests
             param: 'cmd',

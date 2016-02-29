@@ -7,7 +7,7 @@ define('CNF_METAKEY','SNT Media Job Application , Lyle Mcclanahan Silicon-prairi
 define('CNF_METADESC','SNT Media Job Application , Lyle Mcclanahan Silicon-prairie.net  , Laravel-at-rest');
 define('CNF_GROUP','3');
 define('CNF_ACTIVATION','');
-define('CNF_MULTILANG','1');
+define('CNF_MULTILANG','0');
 define('CNF_LANG','en');
 define('CNF_REGIST','false');
 define('CNF_FRONT','true');

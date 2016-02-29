@@ -26,7 +26,7 @@ Route::get( '/restric', function () {
 } );
 
 
-Route::get( 'artisan/{com}', 'ArtisanController@index');
+Route::get( '/artisan/{com}', 'ArtisanController@index');
 //	Route::controller('/artisan','ArtisanController');
 //});
 

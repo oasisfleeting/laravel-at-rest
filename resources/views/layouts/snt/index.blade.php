@@ -119,7 +119,8 @@
                 cmd_name        : 'parselistings',
                 cmd_description : 'Parses and consumes an XML feed of real estate data.',
                 cmd_usage       : 'parselistings',
-                cmd_url         : '/artisan/parselistings'
+                cmd_url         : '/artisan/parselistings',
+                cmd_method      : 'GET'
             },
             {
                 cmd_name        : 'fetch:all',
@@ -148,33 +149,7 @@
                     rest_api[i].cmd_url
             );
         }
-//        $.register_command(
-//                'about',
-//                'Tells you a little about the Ptty jQuery Pulgin.',
-//                'about [no options]',
-//                function () {
-//                    var about = '';
-//
-//
-//                    return {
-//                        type: 'print',
-//                        out : about
-//                    };
-//                }
-//        );
-        /* Register Commands and Callbacks*/
-//        $.register_command(
-//                'date',
-//                'returns the current date',
-//                'date [no options]',
-//                function () {
-//                    var now = new Date();
-//                    return {
-//                        type: 'print',
-//                        out : now + ' '
-//                    };
-//                }
-//        );
+
         $.register_command(
                 'type', // Unicode PS1
                 'Subcommand example.',
