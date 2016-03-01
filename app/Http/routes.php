@@ -12,12 +12,15 @@
 */
 
 
-Route::get( '/', 'HomeController@index' );
-Route::controller( 'home', 'HomeController' );
-Route::controller( '/user', 'UserController' );
+Route::get( '/home', 'HomeController@index' );
 
+//Route::controller( '/user', 'UserController' );
 
+Route::get( '/artisan/{com}', 'ArtisanController@index');
+//	Route::controller('/artisan','ArtisanController');
+//});
 
+Route::resource( 'spnetapi', 'SpnetapiController' );
 
 Route::get( '/restric', function () {
 
@@ -26,15 +29,10 @@ Route::get( '/restric', function () {
 } );
 
 
-Route::get( '/artisan/{com}', 'ArtisanController@index');
-//	Route::controller('/artisan','ArtisanController');
-//});
-
-Route::resource( 'spnetapi', 'SpnetapiController' );
-
-
 include( 'pageroutes.php' );
 include( 'moduleroutes.php' );
+
+
 Route::group( [ 'middleware' => 'auth' ], function () {
 
 	Route::get( 'core/elfinder', 'Core\ElfinderController@getIndex' );

@@ -124,28 +124,28 @@
                 cmd_description: 'consume xml and store in the database',
                 cmd_usage      : 'just type "parselistings" ',
                 cmd_url        : '/artisan/parselistings',
-                cmd_method     : 'GET'
+                //cmd_method     : 'GET'
             },
             {
                 cmd_name       : 'fetch:all',
                 cmd_description: 'Gets a kitty pic from API. Try a number from 01 to 10.',
                 cmd_usage      : 'fetchall listings',
                 cmd_url        : '/listings/all',
-                cmd_method     : 'GET'
+                //cmd_method     : 'GET'
             },
             {
                 cmd_name       : 'fetch:paged',
                 cmd_description: 'Fetched paged data with filter options.',
                 cmd_usage      : 'fetchpaged',
                 cmd_url        : '/listing/paged',
-                cmd_method     : 'GET'
+                //cmd_method     : 'GET'
             },
             {
                 cmd_name       : 'toggle',
                 cmd_description: 'Toggle a listings Public flag',
                 cmd_usage      : 'toggle [1-5]',
                 cmd_url        : '/listing/toggle',
-                cmd_method     : 'GET'
+                //cmd_method     : 'GET'
             }];
 
         for (var i = rest_api.length - 1; i >= 0; i--) {
