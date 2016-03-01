@@ -58,6 +58,7 @@ class ParseListings extends Command
 		$spListingPhoto      = new \App\Models\Listingsphotos();
 		$list                = array();
 		$i                   = 0;
+
 		foreach ($listings as $listing)
 		{
 			$list[$i]['Address'] = (array) $listing->Address[0]->children($xmlns);
@@ -79,14 +80,20 @@ class ParseListings extends Command
 			$list[$i]['ListingKey']         = $this->xml_value($listing->ListingKey);
 			$list[$i]['ListingCategory']    = $this->xml_value($listing->ListingCategory);
 			$list[$i]['ListingStatus']      = $this->xml_value($listing->ListingStatus);
-			$list[$i]['ListingDescription'] = $this->xml_value($listing->ListingDescription);
+			$list[$i]['ListingDescription'] = implode(' ', preg_split('/\s\s+/', $this->xml_value($listing->ListingDescription), -1, PREG_SPLIT_NO_EMPTY));
 			$list[$i]['MlsId']              = $this->xml_value($listing->MlsId);
 			$list[$i]['MlsName']            = $this->xml_value($listing->MlsName);
 			$list[$i]['MlsNumber']          = $this->xml_value($listing->MlsNumber);
 
-			//$list[ $i ]['createdOn'] = date( 'Y-m-d G:i:s', time() );
-			$list[$i]['listingId'] = $spListing->insertRow($list[$i], 0);
-			$list[$i]['Photos']    = $this->xml_values($listing->Photos->children(), $xmlns);
+			if ($spListing->getRow($i+1))
+			{
+				$list[$i]['listingId'] = $spListing->insertRow($list[$i], $i+1);
+			}
+			else
+			{
+				$list[$i]['listingId'] = $spListing->insertRow($list[$i], 0);
+			}
+			$list[$i]['Photos'] = $this->xml_values($listing->Photos->children(), $xmlns);
 
 			$photos = array();
 			//this is unneccessary for the xml given, but I assume eventually there will be non public photos?
@@ -98,7 +105,14 @@ class ParseListings extends Command
 					$photos              = $val[$j];
 					$photos['listingId'] = $list[$i]['listingId'];
 					$photos['Public']    = $accessKey === 'Public' ? 1 : 0;
-					$photoId             = $spListingPhoto->insertRow($photos, 0);
+					if ($spListingPhoto->getRow($j+1))
+					{
+						$photoId = $spListingPhoto->insertRow($photos, $j+1);
+					}
+					else
+					{
+						$photoId = $spListingPhoto->insertRow($photos, 0);
+					}
 				}
 			}
 			$i++;

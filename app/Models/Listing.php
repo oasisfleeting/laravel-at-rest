@@ -1,40 +1,59 @@
 <?php namespace App\Models;
 
-class listing extends Spnet {
+class listing extends Spnet
+{
 
 	protected $table = 'listings';
 	protected $primaryKey = 'id';
 
-	public function __construct() {
+	public function __construct()
+	{
 		parent::__construct();
 
 	}
 
-	public static function querySelect() {
+	public static function querySelect()
+	{
 
-		return "SELECT DISTINCT
-				  listings.*,
-				  GROUP_CONCAT(CONCAT_WS('|', listings_photos.id, listings_photos.Public, listings_photos.MediaModificationTimestamp, listings_photos.MediaURL) SEPARATOR ', ') AS photo_id_access_access_timestamp_url
-				FROM laravelatrest.listings
-				  JOIN listings_photos
-				    ON listings_photos.listingId = listings.id";
+		return "  SELECT
+					  listings.id
+					  ,listings.FullStreetAddress
+					  ,listings.City
+					  ,listings.StateOrProvince
+					  ,listings.PostalCode
+					  ,listings.Country
+					  ,listings.DiscloseAddress
+					  ,listings.ListPrice
+					  ,listings.ListPricePublic
+					  ,listings.ListingURL
+					  ,listings.Bedrooms
+					  ,listings.Bathrooms
+					  ,listings.PropertyType
+					  ,listings.ListingKey
+					  ,listings.ListingCategory
+					  ,listings.ListingStatus
+					  ,listings.ListingDescription
+					  ,listings.MlsId
+					  ,listings.MlsName
+					  ,listings.MlsNumber
+					FROM listings ";
 	}
 
-	public static function queryWhere( $ids = array() ) {
-
-		$ids = array_map( function ( $idees ) {
-			return (int) $idees;
-		}, $ids );
-		if ( $ids ) {
-			return " WHERE listings.id IN( " . implode( ',', $ids ) . " )";
-		} else {
+	public static function queryWhere($ids = array())
+	{
+		if ($ids)
+		{
+			return " WHERE listings.id IN( " . implode(',', $ids) . " )";
+		}
+		else
+		{
 			return " WHERE listings.id > 0 ";
 		}
 	}
 
-	public static function queryGroup() {
-		return "  ";
+	public static function queryGroup()
+	{
+		return " GROUP BY listings.id ";
 	}
-
 
 }

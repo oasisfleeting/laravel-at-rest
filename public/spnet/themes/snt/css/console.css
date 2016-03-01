@@ -58,7 +58,7 @@
 #terminal {
 	position : relative;
 	margin   : 0;
-	height   : 550px;
+	min-height   : 550px;
 	overflow : auto;
 }
 
@@ -69,8 +69,13 @@
 	font-size        : 12px;
 	font-family      : "ubutnu mono", ubuntu, "Lucida Sans Typewriter", "Lucida Typewriter", "Lucida Console", "Bitstream Vera Sans Mono", monaco, Consolas, "Courier New", Courier, "Andale Mono", AndaleMono, monospace, sans-serif;
 	display          : block;
+	overflow-x : hidden;
+	overflow-y : auto;
+
+/*
 	overflow-x       : none;
 	overflow-y       : auto;
+*/
 }
 
 .cmd_terminal div {
@@ -79,20 +84,28 @@
 	white-space : pre-wrap;
 	word-wrap   : break-word;
 	line-height : 18px;
+
+
 }
 
-.cmd_terminal div:first {
+
+
+.cmd_terminal div {
 	margin-bottom : 1em;
+
 }
 
 .cmd_terminal .cmd_terminal_content {
 	margin : 10px 0 0 0;
+	/*height:550px;*/
 }
+
 
 .cmd_terminal .cmd_terminal_prompt {
 	position : relative;
 	overflow : hidden;
-	padding  : 0 24px 15px;
+	padding  : 15px;
+	clear : both;
 }
 
 .cmd_terminal .cmd_terminal_ps, .cmd_terminal .cmd_terminal_sub {
@@ -255,10 +268,16 @@
 		transform : rotate(360deg);
 	}
 }
+/*
 
-.element, .outer-container {
-	width  : 200px;
-	height : 200px;
+.cmd_terminal_content div, .cmd_terminal_content div div{
+	max-height : 550px;
+}
+
+
+.element, .cmd_terminal_content {
+	/!*width  : 200px;*!/
+	max-height : 550px;
 }
 
 .consolewrapper > section {
@@ -278,3 +297,7 @@
 	display : none;
 }
 
+#scrolltome{
+	height:10px;
+}
+*/

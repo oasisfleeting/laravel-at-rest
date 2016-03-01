@@ -15,6 +15,7 @@
     <link href="{{ asset('spnet/themes/snt/css/animate.css')}}" rel="stylesheet">
     <link href="{{ asset('spnet/themes/snt/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{ asset('spnet/themes/prairie/js/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
+    <link href="{{ asset('spnet/themes/snt/css/console.css')}}" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -22,6 +23,7 @@
     <script src="{{ asset('spnet/themes/snt/js/jquery.mixitup.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('spnet/js/plugins/parsley.js') }}"></script>
     <script type="text/javascript" src="{{ asset('spnet/themes/snt/js/fancybox/source/jquery.fancybox.js') }}"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -107,38 +109,43 @@
         </div>
     </div>
 </footer>
-<link href="{{ asset('spnet/themes/snt/css/console.css')}}" rel="stylesheet">
 <script type="text/javascript" src="{{ asset('spnet/js/console.js') }}"></script>
 <script>
     $(document).ready(function () {
         /* Start Ptty terminal */
-        $('#terminal').Ptty();
+        $('#terminal').Ptty({
+            method:'GET'
+        });
 
 
-            var rest_api = [{
-                cmd_name        : 'parselistings',
-                cmd_description : 'Parses and consumes an XML feed of real estate data.',
-                cmd_usage       : 'parselistings',
-                cmd_url         : '/artisan/parselistings',
-                cmd_method      : 'GET'
+        var rest_api = [
+            {
+                cmd_name       : 'parselistings',
+                cmd_description: 'consume xml and store in the database',
+                cmd_usage      : 'just type "parselistings" ',
+                cmd_url        : '/artisan/parselistings',
+                cmd_method     : 'GET'
             },
             {
-                cmd_name        : 'fetch:all',
-                cmd_description : 'Gets a kitty pic from API. Try a number from 01 to 10.',
-                cmd_usage       : 'kittyget [01 to 10]',
-                cmd_url         : '/listings/all'
+                cmd_name       : 'fetch:all',
+                cmd_description: 'Gets a kitty pic from API. Try a number from 01 to 10.',
+                cmd_usage      : 'fetchall listings',
+                cmd_url        : '/listings/all',
+                cmd_method     : 'GET'
             },
             {
-                cmd_name        : 'fetch:paged',
-                cmd_description : 'Fetched paged data with filter options.',
-                cmd_usage       : 'fetchpaged',
-                cmd_url         : '/listing/paged'
+                cmd_name       : 'fetch:paged',
+                cmd_description: 'Fetched paged data with filter options.',
+                cmd_usage      : 'fetchpaged',
+                cmd_url        : '/listing/paged',
+                cmd_method     : 'GET'
             },
             {
-                cmd_name        : 'toggle',
-                cmd_description : 'Toggle a listings Public flag',
-                cmd_usage       : 'toggle [1-5]',
-                cmd_url         : '/listing/toggle'
+                cmd_name       : 'toggle',
+                cmd_description: 'Toggle a listings Public flag',
+                cmd_usage      : 'toggle [1-5]',
+                cmd_url        : '/listing/toggle',
+                cmd_method     : 'GET'
             }];
 
         for (var i = rest_api.length - 1; i >= 0; i--) {
@@ -148,63 +155,11 @@
                     rest_api[i].cmd_usage,
                     rest_api[i].cmd_url
             );
-        }
 
-        $.register_command(
-                'type', // Unicode PS1
-                'Subcommand example.',
-                'type [no options]',
-                {
-                    ps             : 'type',
-                    start_hook     : function () {
-                        return {
-                            type    : 'print',
-                            callback: 'typewriter',
-                            out     : '',
-                            write   : '&lt;p&gt;Hello, &lt;b&gt;type&lt;/b&gt; is a callback example that outputs text like a typewriter.&lt;br&gt;'
-                            + 'Html tags are allowed so... pictures, iframes, all of it. Go crazy.&lt;br&gt;'
-                            + 'You can type &lt;b&gt;exit&lt;/b&gt; anytime to go back to the main prompt.&lt;/p&gt;'
-                        };
-                    },
-                    exit_hook      : function () {
-                        return {
-                            type: 'print',
-                            out : 'Exit signal recieved: Bye.'
-                        };
-                    },
-                    dispatch_method: function (args) {
-                        return {
-                            type    : 'print',
-                            callback: 'typewriter',
-                            out     : '',
-                            write   : args.join(' ')
-                        };
-                    }
-                }
-        );
-// Typewriter effect callback
-        $.register_callback('typewriter', function (data) {
-            var text_input = $('.cmd_terminal_prompt');
-            text_input.hide();
-            if (typeof data.write === 'string') {
-// decode special entities.
-                var str = $('<div/>').html(data.write + ' ').text(),
-                        typebox = $('<div></div>').appendTo('.cmd_terminal_content'),
-                        i = 0,
-                        isTag,
-                        text;
-                (function typewriter() {
-                    text = str.slice(0, ++i);
-                    if (text === str) return text_input.show();
-                    typebox.html(text);
-                    var char = text.slice(-1);
-                    if (char === '<') isTag = true;
-                    if (char === '>') isTag = false;
-                    if (isTag) return typewriter();
-                    setTimeout(typewriter, 40);
-                }());
-            }
-        });
+            $.set_command_option(
+                    rest_api[i].cmd_method
+            );
+        }
     });
 </script>
 <script type="text/javascript">(function () {

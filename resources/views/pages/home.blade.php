@@ -49,7 +49,7 @@
             </div>
             <div id="consolewrapper" class="col-md-8">
                 <section>
-                    <div id="terminal" class="cmd_terminal_theme_fallout"></div>
+                    <div id="terminal"></div>
                 </section>
             </div>
         </div>
