@@ -156,10 +156,80 @@
                     rest_api[i].cmd_url
             );
 
-            $.set_command_option(
-                    rest_api[i].cmd_method
-            );
+//            $.set_command_option(
+//                    rest_api[i].cmd_method
+//            );
         }
+
+        $.register_command(
+                'type', // Unicode PS1
+                'Subcommand example.',
+                'type [no options]',
+                {
+                    ps : 'type',
+                    start_hook      : function(){
+                        return {
+                            type : 'print',
+                            callback : 'typewriter',
+                            out : 'parselistings',
+                            write : 'parselistings'
+                        };
+                    },
+                    exit_hook       : function(){
+                        return {
+                            type : 'print',
+                            out : 'parselistings'
+                        };
+                    },
+                    dispatch_method : function(args){
+                        return {
+                            type : 'print',
+                            callback : 'typewriter',
+                            out : 'parselistings',
+                            write : args.join(' ')
+                        };
+                    }
+                }
+        );
+
+        // Typewriter effect callback
+        $.register_callback('typewriter', function(data){
+            var text_input = $('.cmd_terminal_prompt');
+            text_input.hide();
+            if(typeof data.write === 'string'){
+                // decode special entities.
+                var str = $('<div/>').html(data.write + ' ').text(),
+                        typebox = $('<div></div>').appendTo('.cmd_terminal_content'),
+                        i = 0,
+                        isTag,
+                        text;
+                (function typewriter() {
+                    text = str.slice(0, ++i);
+                    if (text === str) return text_input.show();
+
+                    typebox.html(text);
+
+                    var char = text.slice(-1);
+                    if( char === '<' ) isTag = true;
+                    if( char === '>' ) isTag = false;
+
+                    if (isTag) return typewriter();
+                    setTimeout(typewriter, 40);
+                }());
+            }
+        });
+
+
+        $.register_callback('scrolltoprompt',function(data){
+            $('#terminal').scrollTo('div.cmd_terminal_prompt',5000,'linear');
+           //$('#terminal').scrollTo('.cmd_terminal_prompt',2000);
+            //$('#terminal').animate({ scrollTop: $('div.contentappendedtwo > div.clearfix:last').position().top },3000).promise().always(function(){
+            //    $('#terminal').scrollTo('div.cmd_terminal_prompt',2000);
+                        //.animate({ scrollTop: $('div.cmd_terminal_prompt > form').position().top },3000);
+           // });
+            console.log('test');
+
+        });
     });
 </script>
 <script type="text/javascript">(function () {

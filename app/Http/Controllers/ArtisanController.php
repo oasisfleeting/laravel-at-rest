@@ -38,7 +38,7 @@ class ArtisanController extends Controller
 				Artisan::call($com, $args = array());
 				$out        = Artisan::output();
 				$resp       = new \stdClass();
-				$resp->type = 'print';
+				$resp->type = 'type';
 				$resp->out  = $out;
 
 				return response()->json($resp);
@@ -126,7 +126,8 @@ class ArtisanController extends Controller
 		//$out .= "<script>$('.cmd_terminal_content').animate({scrollTop: $('div.contentappendedtwo > div:last').position().top}, 5000).promise().always( function () { console.log($(this)); });</script>";
 		//.animate({scrollTop:$('#scrolltome').last().position().top},1000);</script>";
 		$resp->out  = $out;
-		$resp->exit = 'true';
+		$resp->callback = 'scrolltoprompt';
+		//$resp->exit = 'true';
 		//echo "<pre>";
 		//print_r($rows['rows']);
 		return response()->json($resp);

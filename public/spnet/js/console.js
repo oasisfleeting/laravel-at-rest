@@ -26,12 +26,12 @@
 			ps           : '',
 
 			// The theme that is applied by default
-			theme        : 'boring',
+			theme        : 'fallout',
 
 			// Explicitly set width and height of the terminal
 			// container. This may also be done in tty_class
 			width        : '100%',
-			height       : '100%',
+			height       : '550px',
 
 			// Message to be shown when the terminal is first
 			welcome      : 'Laravel At Rest',
@@ -320,9 +320,7 @@
 
 				// End loading.
 				loading.fadeOut(300);
-				prompt.removeAttr('disabled').show().promise().always(function(){
-					$('#terminal').animate({scrollTop:$('.cmd_terminal_prompt').position().top},3000);
-				});
+				prompt.removeAttr('disabled').show();
 			};
 
 			/**
@@ -654,14 +652,14 @@
 
 			/* Cleanup and scroll */
 			var clean_and_scroll = function(){
-				if(txt_input.is(':visible')) {
-					txt_input.val('');
-					txt_input.focus();
-				}else if(psw_input.is(':visible')){
-					psw_input.val('');
-					psw_input.focus();
-				}
-				scroll_to_bottom();
+			//	if(txt_input.is(':visible')) {
+			//		txt_input.val('');
+			//		txt_input.focus();
+			//	}else if(psw_input.is(':visible')){
+			//		psw_input.val('');
+			//		psw_input.focus();
+			//	}
+			//	scroll_to_bottom();
 			}
 
 			/**
