@@ -40,11 +40,11 @@ Route::get('/api/v1/listings/{id?}/{paged?}/{order?}/{sort?}', ['middleware' => 
 	$page       = $page >= 1 && filter_var($page, FILTER_VALIDATE_INT) !== false ? $page : 1;
 	//echo '<pre>';
 	//return response()->view('',print_r($listings));
-	response()->view('pages.json',$content =array('error' => false, 'listings' => $listings, 'status_code' => 200, 'pagenumber'=>($page * $params['limit']) - $params['limit']));
+	//response()->view('pages.json',$content =array('error' => false, 'listings' => $listings, 'status_code' => 200, 'pagenumber'=>($page * $params['limit']) - $params['limit']));
 
-//	return response()->json(
-//		array('error' => false, 'listings' => $listings, 'status_code' => 200, 'pagenumber'=>($page * $params['limit']) - $params['limit'])
-//	);
+	return response()->json(
+		array('error' => false, 'listings' => $listings, 'status_code' => 200, 'pagenumber'=>($page * $params['limit']) - $params['limit'])
+	);
 
 }]);
 
