@@ -14,47 +14,37 @@
 //api/v1/listings/pageid/sorted/desc/
 ///api/v1/listings/pageid/sorted/asc
 
-Route::get('/api/v1/listings/{order}/{sort?}/{pageid?}/{photos?}', function ($sort = 'asc', $order = '', $pageid = 0, $photos_only = 0)
+Route::get('/api/v1/listings/sortprice/{lpsort?}/sortdate/{ldsort?}/pageid/{pageid?}/{photos?}', function ($lpsort = 'asc', $ldsort = 'asc', $pageid = 0, $photos_only = 0)
 {
 	//scope vars
 	$listings = '';
-	$photos = '';
-
+	$photos   = '';
 
 	//clean input
-	$sort = strtolower($sort);
-	if ($sort === 'listprice')
-	{
-		$sort = 'ListPrice';
-	}
-	elseif ($sort === 'listdate')
-	{
-		$sort = 'ListDate';
-	}
-	else
-	{
-		$sort = '';
-	}
-
-	//still cleaning
-	$order       = strtolower($order);
-	$order       = ($order === 'desc') ? $order : 'asc';
+	$lpsort      = strtolower($lpsort);
+	$lpsort      = ($lpsort === 'desc') ? 'ListPrice ' . $lpsort : 'ListPrice asc';
+	$ldsort      = strtolower($ldsort);
+	$ldsort      = ($ldsort === 'desc') ? 'ListDate ' . $ldsort : 'ListDate asc';
 	$pageid      = filter_var($pageid, FILTER_SANITIZE_NUMBER_INT);
-	$photos_only = filter_var($photos_only, FILTER_SANITIZE_NUMBER_INT);
+	$photos_only = (isset($photos_only) && $photos_only > 0) ? 1 : 0;
 
 	//query and request params
-	$params['order'] = $order;
-	$params['sort']  = $sort;
+	$params['order'] = $lpsort . ' ' . $ldsort;
 	$params['page']  = $pageid;
 
-	$params['limit']  = $pageid == 0 ? 0 : 1;
+	$params['limit']  = ($pageid == 0) ? 0 : 1;
 	$params['filter'] = '';
 	$params['params'] = " AND listings_photos.Public = 1 AND listings_photos.listingId = ";
 
-	//print_r($params);
+	echo "<pre>";
+	print_r($photos_only);
+
+	echo "<pre>";
+	print_r($params);
+	exit();
 
 	$listings = array();
-	if ($photos_only != 0)
+	if (!$photos_only)
 	{
 		//photos only
 		$params['params'] = " AND listings_photos.Public = 1 ";
@@ -74,7 +64,7 @@ Route::get('/api/v1/listings/{order}/{sort?}/{pageid?}/{photos?}', function ($so
 		$listings = $listings->toArray();
 	}
 
-	if(isset($listings['total']))
+	if (isset($listings['total']))
 	{
 		//fetch many photos per one listing
 		for ($i = 0; $i < $listings['total']; $i++)

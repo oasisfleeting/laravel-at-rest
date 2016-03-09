@@ -61,19 +61,16 @@
         <div class="row">
             <div style="height:2px;" class="clearfix"></div>
             <div class="col-md-3 well center-block">
-                <span id="sortprice" data-sort="asc" class="sortbtn btn btn-danger btn-lg btn-block">Sort by ListPrice ASC</span>
+                <span id="sortprice" data-sort="asc" class="sortbtn btn btn-danger btn-lg btn-block">ListPrice ASC</span>
             </div>
             <div class="col-md-3 well center-block">
-                <span id="sortdate" data-sort="asc" class="sortbtn btn btn-danger btn-lg btn-block">Sort by ListDate ASC </span>
+                <span id="sortdate" data-sort="asc" class="sortbtn btn btn-danger btn-lg btn-block">ListDate ASC </span>
             </div>
             <div class="col-md-3 well center-block">
-                <span id="photosoonly" data-photosonly="true" class="photosbtn btn btn-danger btn-lg btn-block">Photos Only Off </span>
+                <span id="photosonly" data-photosonly="0" class="photosbtn btn btn-danger btn-lg btn-block">Photos Only Off </span>
             </div>
-            <div class="col-md-2 well center-block">
-                <span id="pagedbtn" data-paged="false" data-pagenum="0" class="pagedbtn btn btn-danger btn-lg btn-block">Paged Data Off </span>
-            </div>
-            <div class="col-md-1 well center-block">
-                <span id="pagedbtn" data-paged="false" data-pagenum="0" class="pagenumbtn btn btn-danger btn-lg btn-block">#0 </span>
+            <div class="col-md-3 well center-block">
+                <span id="pagedbtn" data-paged="0" data-pagenum="0" class="pagedbtn btn btn-danger btn-lg btn-block">Paged Data Off </span>
             </div>
         </div>
     </div>
@@ -82,17 +79,22 @@
     <div class="container">
         <div class="row">
             <div style="height:2px;" class="clearfix"></div>
-            <div class="col-md-3 well center-block">
+            <div class="col-md-4 well center-block">
                 <span id="fetch_listings" data-cmd="fetch:listings" class="fetchbtn btn btn-danger btn-lg btn-block">Parse XML and Fetch All <i class="fa fa-retweet">&nbsp;</i></span>
             </div>
+            <!--
             <div class="col-md-3 well center-block">
                 <span id="fetch_filtered" data-cmd="fetch:filtered" class="fetchbtn btn btn-danger btn-lg btn-block">Fetch All <i class="fa fa-share-alt fa-rotate-270">&nbsp;</i></span>
             </div>
             <div class="col-md-3 well center-block">
                 <span id="fetch_photos" data-cmd="fetch:photos" class="fetchbtn btn btn-danger btn-lg btn-block">Fetch Paged <i class="fa fa-share-square-o fa-rotate-90">&nbsp;</i></span>
             </div>
-            <div class="col-md-3 well center-block">
-                <span id="toggle" data-cmd="toggle" class="fetchbtn btn btn-danger btn-lg btn-block">Toggle <i class="fa fa-toggle-off">&nbsp;</i></span>
+            -->
+            <div class="col-md-4 well center-block">
+                <span id="toggle" data-cmd="toggle" class="fetchbtn btn btn-danger btn-lg btn-block">Toggle <i id="toggleicon" class="fa fa-toggle-off">&nbsp;</i></span>
+            </div>
+            <div class="col-md-4 well center-block">
+                <span id="pagenumbtn" data-page="0" class="pagenumbtn btn btn-danger btn-lg btn-block">Page #0 >> </span>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -180,22 +182,42 @@
             // listdate|listprice   - sortprice
             // asc|desc             - sortdate
             // paged[x]             - pagedbtn
-            // photos[1|0]          - photosoonly
+            // photos[1|0]          - photosonly
             var url = '/api/v1/listings/';
-
-
+            url += 'sortprice/' + $('#sortprice').attr('data-sort');
+            url += '/sortdate/' + $('#sortdate').attr('data-sort');
+            url += '/pageid/'+ $('#pagenumbtn').attr('data-page');
+            if($('#photosonly').attr('data-photosonly') == 1) {
+                url += '/photosonly'; // + $('#photosonly').attr('data-photosonly');
+            }
+            console.log(url);
         };
+
+        $('#toggle').click(function(){
+            
+           //$('#toggleicon').class
+        });
+
+        $('#pagenumbtn').click(function(){
+            parseControlLogic('');
+            if($('#pagedbtn').attr('data-paged') == 1) {
+                var num = parseInt($(this).attr('data-page'));
+                num += 1;
+                $(this).attr('data-page', num);
+                $(this).text('Page #' + num + ' >>');
+            }
+        });
 
         $('.sortbtn').click(function () {
             var data = {};
             $(this).toggleClass('btnon');
             if ($(this).hasClass('btnon')) {
                 $(this).text($(this).text().replace('ASC', 'DESC'));
-                $(this).attr('data-sort','desc');
+                $(this).attr('data-sort', 'desc');
             }
             else {
                 $(this).text($(this).text().replace('DESC', 'ASC'));
-                $(this).attr('data-sort','asc');
+                $(this).attr('data-sort', 'asc');
             }
         });
 
@@ -203,11 +225,11 @@
             $(this).toggleClass('btnon');
             if ($(this).hasClass('btnon')) {
                 $(this).text($(this).text().replace('Off ', 'On '));
-                $(this).attr('data-photosonly','true');
+                $(this).attr('data-photosonly', '1');
             }
             else {
                 $(this).text($(this).text().replace('On ', 'Off '));
-                $(this).attr('data-photosonly','false');
+                $(this).attr('data-photosonly', '0');
             }
         });
 
@@ -215,11 +237,11 @@
             $(this).toggleClass('btnon');
             if ($(this).hasClass('btnon')) {
                 $(this).text($(this).text().replace('Off ', 'On '));
-                $(this).attr('data-paged','true');
+                $(this).attr('data-paged', '1');
             }
             else {
                 $(this).text($(this).text().replace('On ', 'Off '));
-                $(this).attr('data-paged','false');
+                $(this).attr('data-paged', '0');
             }
         });
 

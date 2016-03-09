@@ -1792,10 +1792,12 @@
       <file leaf-file-name="apiroutes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/apiroutes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.037037">
-              <caret line="73" column="41" selection-start-line="73" selection-start-column="41" selection-end-line="73" selection-end-column="41" />
+            <state vertical-scroll-proportion="-11.333333">
+              <caret line="31" column="47" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
               <folding>
                 <element signature="e#7#90#0#PHP" expanded="true" />
+                <marker date="1457501400627" expanded="true" signature="1171:1314" placeholder="..." />
+                <marker date="1457501400627" expanded="true" signature="1211:1314" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -1804,15 +1806,14 @@
       <file leaf-file-name="home.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/pages/home.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.28106508">
-              <caret line="58" column="29" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
+            <state vertical-scroll-proportion="-0.8372781">
+              <caret line="196" column="12" selection-start-line="196" selection-start-column="12" selection-end-line="196" selection-end-column="12" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#section#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#section#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#!!top" expanded="false" />
                 <element signature="n#style#0;n#section#3;n#!!top" expanded="true" />
-                <marker date="1457496993727" expanded="true" signature="16423:16501" placeholder="..." />
+                <marker date="1457504849742" expanded="true" signature="17276:17354" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -1868,10 +1869,10 @@
         <option value="$PROJECT_DIR$/bootstrap/cache/services.json" />
         <option value="$PROJECT_DIR$/app/Console/Kernel.php" />
         <option value="$PROJECT_DIR$/tests/TestCase.php" />
-        <option value="$PROJECT_DIR$/app/Http/apiroutes.php" />
         <option value="$PROJECT_DIR$/app/Http/pageroutes.php" />
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
         <option value="$PROJECT_DIR$/public/spnet/themes/snt/css/style.css" />
+        <option value="$PROJECT_DIR$/app/Http/apiroutes.php" />
         <option value="$PROJECT_DIR$/resources/views/pages/home.blade.php" />
       </list>
     </option>
@@ -2472,12 +2473,12 @@
       <workItem from="1457349266704" duration="3327000" />
       <workItem from="1457352942814" duration="3245000" />
       <workItem from="1457356234502" duration="712000" />
-      <workItem from="1457468267369" duration="26931000" />
+      <workItem from="1457468267369" duration="34889000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69789000" />
+    <option name="totallyTimeSpent" value="77747000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
@@ -3102,16 +3103,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/apiroutes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.037037">
-          <caret line="73" column="41" selection-start-line="73" selection-start-column="41" selection-end-line="73" selection-end-column="41" />
-          <folding>
-            <element signature="e#7#90#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/pages/json.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.6666667">
@@ -3136,17 +3127,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/apiroutes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.333333">
+          <caret line="31" column="47" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
+          <folding>
+            <element signature="e#7#90#0#PHP" expanded="true" />
+            <marker date="1457501400627" expanded="true" signature="1171:1314" placeholder="..." />
+            <marker date="1457501400627" expanded="true" signature="1211:1314" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/pages/home.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28106508">
-          <caret line="58" column="29" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
+        <state vertical-scroll-proportion="-0.8372781">
+          <caret line="196" column="12" selection-start-line="196" selection-start-column="12" selection-end-line="196" selection-end-column="12" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#section#1;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#section#2;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#section#3;n#!!top" expanded="true" />
-            <marker date="1457496993727" expanded="true" signature="16423:16501" placeholder="..." />
+            <marker date="1457504849742" expanded="true" signature="17276:17354" placeholder="..." />
           </folding>
         </state>
       </provider>
