@@ -1094,7 +1094,10 @@ class elFinder {
 		}
 		return array_merge($files, array());
 	}
-	
+
+	/**
+	 * @return float
+	 */
 	protected function utime() {
 		$time = explode(" ", microtime());
 		return (double)$time[1] + (double)$time[0];

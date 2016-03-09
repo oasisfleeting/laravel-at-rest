@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+
+    RewriteEngine On
+
+    # Redirect Trailing Slashes...
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    RewriteCond %{HTTP_HOST} ^laravelatrest.com$ [NC,OR]
+    RewriteCond %{HTTP_HOST} ^www.laravelatrest.com$
+    RewriteCond %{REQUEST_URI} !public_html/app/public/
+    RewriteRule (.*) /public_html/app/public/$1 [L]
+
+</IfModule>
