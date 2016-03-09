@@ -194,7 +194,7 @@
         };
 
         $('#toggle').click(function(){
-            
+
            //$('#toggleicon').class
         });
 

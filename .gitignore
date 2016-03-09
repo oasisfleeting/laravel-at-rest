@@ -1,3 +1,8 @@
+/laravelatrest.backup
+/laravel-at-rest.iml
+/composer.lock
+/.idea
+/_testing_build
 /vendor
 /node_modules
 .env
