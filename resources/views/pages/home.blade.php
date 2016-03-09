@@ -56,6 +56,28 @@
         </div>
     </div>
 </section>
+<section class="sortingsect">
+    <div class="container">
+        <div class="row">
+            <div style="height:2px;" class="clearfix"></div>
+            <div class="col-md-3 well center-block">
+                <span id="sortprice" data-sort="asc" class="sortbtn btn btn-danger btn-lg btn-block">Sort by ListPrice ASC</span>
+            </div>
+            <div class="col-md-3 well center-block">
+                <span id="sortdate" data-sort="asc" class="sortbtn btn btn-danger btn-lg btn-block">Sort by ListDate ASC </span>
+            </div>
+            <div class="col-md-3 well center-block">
+                <span id="photosoonly" data-photosonly="true" class="photosbtn btn btn-danger btn-lg btn-block">Photos Only Off </span>
+            </div>
+            <div class="col-md-2 well center-block">
+                <span id="pagedbtn" data-paged="false" data-pagenum="0" class="pagedbtn btn btn-danger btn-lg btn-block">Paged Data Off </span>
+            </div>
+            <div class="col-md-1 well center-block">
+                <span id="pagedbtn" data-paged="false" data-pagenum="0" class="pagenumbtn btn btn-danger btn-lg btn-block">#0 </span>
+            </div>
+        </div>
+    </div>
+</section>
 <section class="restbuttons">
     <div class="container">
         <div class="row">
@@ -70,7 +92,7 @@
                 <span id="fetch_photos" data-cmd="fetch:photos" class="fetchbtn btn btn-danger btn-lg btn-block">Fetch Paged <i class="fa fa-share-square-o fa-rotate-90">&nbsp;</i></span>
             </div>
             <div class="col-md-3 well center-block">
-                <span id="toggle" data-cmd="toggle" class="fetchbtn btn btn-danger btn-lg btn-block"> Toggle <i class="fa fa-toggle-off">&nbsp;</i></span>
+                <span id="toggle" data-cmd="toggle" class="fetchbtn btn btn-danger btn-lg btn-block">Toggle <i class="fa fa-toggle-off">&nbsp;</i></span>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -118,7 +140,7 @@
         /* Start Ptty terminal */
         $('#terminal').Ptty();
 
-        var enterCommand = function(cmd){
+        var enterCommand = function (cmd) {
             $('#terminal').find('form').find('input[type=text]').val(cmd).parent('form').submit();
         }
 
@@ -154,14 +176,57 @@
                 }
         );
 
-        var parseControlLogic = function(){
+        var parseControlLogic = function (cmd) {
+            // listdate|listprice   - sortprice
+            // asc|desc             - sortdate
+            // paged[x]             - pagedbtn
+            // photos[1|0]          - photosoonly
+            var url = '/api/v1/listings/';
+
 
         };
 
+        $('.sortbtn').click(function () {
+            var data = {};
+            $(this).toggleClass('btnon');
+            if ($(this).hasClass('btnon')) {
+                $(this).text($(this).text().replace('ASC', 'DESC'));
+                $(this).attr('data-sort','desc');
+            }
+            else {
+                $(this).text($(this).text().replace('DESC', 'ASC'));
+                $(this).attr('data-sort','asc');
+            }
+        });
+
+        $('.photosbtn').click(function () {
+            $(this).toggleClass('btnon');
+            if ($(this).hasClass('btnon')) {
+                $(this).text($(this).text().replace('Off ', 'On '));
+                $(this).attr('data-photosonly','true');
+            }
+            else {
+                $(this).text($(this).text().replace('On ', 'Off '));
+                $(this).attr('data-photosonly','false');
+            }
+        });
+
+        $('.pagedbtn').click(function () {
+            $(this).toggleClass('btnon');
+            if ($(this).hasClass('btnon')) {
+                $(this).text($(this).text().replace('Off ', 'On '));
+                $(this).attr('data-paged','true');
+            }
+            else {
+                $(this).text($(this).text().replace('On ', 'Off '));
+                $(this).attr('data-paged','false');
+            }
+        });
+
         $('.fetchbtn').click(function () {
             var cmd = $(this).data('cmd');
-            parseControlLogic();
-            console.log( window.location.pathname+cmd);
+            var url = parseControlLogic(cmd);
+            console.log(window.location.pathname + cmd);
             $('#terminal').find('form').find('input[type=text]').val(cmd).parent('form').submit();
             console.log(cmd)
         });
@@ -273,7 +338,6 @@
         });
 
 
-
         function load_callbefores() {
             $.register_callbefore(
                     'register',
@@ -300,9 +364,6 @@
                     }
             );
         }
-
-
-
 
 
         $.register_callback('scrolltoprompt', function (data) {
