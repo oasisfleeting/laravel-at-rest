@@ -5,7 +5,7 @@
  *
  * @package App\Models
  */
-class listingsphotos extends Spnet
+class Listingsphotos extends Spnet
 {
 
 	protected $table = 'listings_photos';

@@ -91,7 +91,7 @@
             </div>
             -->
             <div class="col-md-4 well center-block">
-                <span id="toggle" data-cmd="toggle" class="fetchbtn btn btn-danger btn-lg btn-block">Toggle <i id="toggleicon" class="fa fa-toggle-off">&nbsp;</i></span>
+                <span id="toggle" data-cmd="toggle" class="togglebtn btn btn-danger btn-lg btn-block">Toggle <i id="toggleicon" class="fa fa-toggle-off">&nbsp;</i></span>
             </div>
             <div class="col-md-4 well center-block">
                 <span id="pagenumbtn" data-page="0" class="pagenumbtn btn btn-danger btn-lg btn-block">Page #0 >> </span>
@@ -141,10 +141,6 @@
     $(document).ready(function () {
         /* Start Ptty terminal */
         $('#terminal').Ptty();
-
-//        var enterCommand = function (cmd) {
-//            $('#terminal').find('form').find('input[type=text]').val(cmd).parent('form').submit();
-//        }
 
         function reRegisterCallBefores() {
             $.register_callbefore('typewriterbefore', function (data) {
@@ -310,17 +306,19 @@
 
         $('#toggle').click(function () {
 
-            //$('#toggleicon').class
         });
 
         $('#pagenumbtn').click(function () {
-            parseControlLogic('');
+
             if ($('#pagedbtn').attr('data-paged') == 1) {
                 var num = parseInt($(this).attr('data-page'));
                 num += 1;
+                if (num > 5)
+                    num = 1;
                 $(this).attr('data-page', num);
                 $(this).text('Page #' + num + ' >>');
             }
+            parseControlLogic('');
         });
 
         $('.sortbtn').click(function () {
@@ -334,6 +332,7 @@
                 $(this).text($(this).text().replace('DESC', 'ASC'));
                 $(this).attr('data-sort', 'asc');
             }
+            parseControlLogic('')
         });
 
         $('.photosbtn').click(function () {
@@ -353,13 +352,15 @@
             if ($(this).hasClass('btnon')) {
                 $(this).text($(this).text().replace('Off ', 'On '));
                 $(this).attr('data-paged', '1');
+                $('#pagenumbtn').attr('data-page', 1);
+                $('#pagenumbtn').text('Page #' + 1 + ' >>');
             }
             else {
                 $(this).text($(this).text().replace('On ', 'Off '));
                 $(this).attr('data-paged', '0');
 
                 //reset pager
-                $('#pagenumbtn').attr('data-pagenum', 0);
+                $('#pagenumbtn').attr('data-page', 0);
                 $('#pagenumbtn').text('Page #' + 0 + ' >>');
 
             }
@@ -369,7 +370,7 @@
             var cmd = $(this).data('cmd');
             var url = parseControlLogic(cmd);
             console.log(window.location.pathname + cmd);
-            $('#terminal').find('form').find('input[type=text]').val(cmd).parent('form').submit();
+            //$('#terminal').find('form').find('input[type=text]').val(cmd).parent('form').submit();
 
 
             //console.log(cmd)

@@ -17,62 +17,45 @@
 Route::get('/api/v1/listings/sortprice/{lpsort?}/sortdate/{ldsort?}/pageid/{pageid?}/{photos?}', function ($lpsort = 'asc', $ldsort = 'asc', $pageid = 0, $photos_only = 0)
 {
 	//scope vars
-	$listings                   = array();
-	$listing                    = array();
-	$html                       = '';
-	$html_imgs                  = '';
-	$photos                     = '';
-	$total                      = 0;
-	$params                     = array('page' => $pageid, 'limit' => ($pageid > 0) ? 1 : 0, 'sort' => '', 'order' => '', 'params' => '', 'global' => 1);
-	$listingParams              = array('sort' => ' ListPrice ', 'order' => ($lpsort === 'desc') ? $lpsort : ' asc ', 'params' => '',);
-	$photoParams                = array('sort' => ' MediaModificationTimestamp ', 'order' => ($ldsort === 'desc') ? $ldsort : ' asc ', 'params' => ' AND listings_photos.Public = 1 ',);
-	$photoPagedParams['params'] = ' AND listings_photos.listingId = ';
-	$listPagedParams['params']  = ' AND id = ';
+	$listings    = array();
+	$listing     = array();
+	$html        = '';
+	$html_imgs   = '';
+	$photos      = '';
+	$total       = 0;
+	$listingArgs = '';
 
-	$photos_only = ((isset($photos_only) && $photos_only > 0) || $photos_only === 'photosonly') ? 1 : 0;
-
-	if ($photos_only)
+	$select = ' SELECT id FROM listings ORDER BY ';
+	$select .= ($lpsort == 'asc') ? ' ListPrice asc ' : ' ListPrice  desc ';
+	$lids = array_map(function ($in)
 	{
-		if ($pageid)
-		{
-			//paged photos
-			$conditional['params'] = $params['params'] . $photoParams['params'] . $photoPagedParams['params'] . $pageid;
-			$args                  = array_merge($params, $photoParams, $conditional);
-			$photos                = App\Models\Listingsphotos::getRows($args);
-		}
-		else
-		{
-			//all photos only
-			$conditional['params'] = $params['params'] . $photoParams['params'];
-			$args                  = array_merge($params, $photoParams, $conditional);
-			$photos                = App\Models\Listingsphotos::getRows($args);
-		}
+		return $in->id;
+	}, DB::select($select));
 
-		$listing = array_map(function ($in)
-		{
-			$in = (array) $in;
-			$html = '<div class="clearfix"><img style="width:60px;" src="'.$in['MediaURL'].'"/></div>';
-			return $html . json_encode($in);
-		}, $photos['rows']);
-	}
-	elseif ($pageid)
+	$field_column   = ' listings_photos.listingId ';
+	$sort           = ' FIELD(' . $field_column . ', ' . implode(',', $lids) . ') ';
+	$params['sort'] = $sort;
+
+	$li          = new App\Models\Listing();
+	$lp          = new App\Models\Listingsphotos();
+	$photos_only = ($photos_only === 'photosonly') ? 1 : 0;
+
+	if ($pageid)
 	{
-		//paged listings and photos
-		$conditional['params'] = $params['params'] . $listingParams['params'] . $listPagedParams['params'] . $pageid;
-		$args                  = array_merge($params, $listingParams, $conditional);
-		$pagedListings         = App\Models\Listing::getRows($args);
-		$listings              = $pagedListings['rows'];
-		$total                 = count($listings);
+		$listingId = $lids[$pageid-1];
+		$sql           = $li->querySelect() . $li->queryWhere(array($listingId)) . $li->queryGroup();// . ' LIMIT ' . $pageid . ' , 1';
+		$pagedListings = DB::select($sql);
+		$listings      = $pagedListings;
+		$total         = count($listings);
+		//print_r($listings);
 	}
 	else
 	{
-		//all listings and photos
-		//TODO: use eloquent relations
-		$conditional['params'] = $params['params'] . $listingParams['params'];// . $listPagedParams['params'];
-		$args                  = array_merge($params, $listingParams, $conditional);
-		$pagedListings         = App\Models\Listing::getRows($args);
-		$listings              = $pagedListings['rows'];
-		$total                 = count($listings);
+		$field_column  = ' listings.id ';
+		$sql           = $li->querySelect() . $li->queryWhere() . $li->queryGroup() . ' ORDER BY FIELD(' . $field_column . ', ' . implode(',', $lids) . ') '; //{$orderConditional} . {$limitConditional};
+		$pagedListings = DB::select($sql);
+		$listings      = $pagedListings;
+		$total         = count($listings);
 	}
 
 	if ($total)
@@ -80,19 +63,28 @@ Route::get('/api/v1/listings/sortprice/{lpsort?}/sortdate/{ldsort?}/pageid/{page
 		//fetch many photos per one listing
 		for ($i = 0; $i < $total; $i++)
 		{
-			$listing[$i]           = (array) $listings[$i];
-			$conditional['params'] = $params['params'] . $photoParams['params'] . $photoPagedParams['params'] . $listing[$i]['id'];
-			$args                  = array_merge($params, $photoParams, $conditional);
-			$photos                = App\Models\Listingsphotos::getRows($args);
-			unset($args);
-			$listing[$i]['photos'] = array_map(function ($in)
+			$listings[$i]    = (array) $listings[$i];
+			$sort            = ' MediaModificationTimestamp ';
+			$params['sort']  = $sort;
+			$params['order'] = ($ldsort === 'desc') ? $ldsort : ' asc ';
+			$args            = $params;
+			$sql             = $lp->querySelect() . $lp->queryWhere($listings[$i]['id']) . ' ORDER BY ' . $params['sort'] . $params['order'];
+			$photos          = DB::select($sql);
+
+			if ($photos_only)
+			{
+				$id = $listings[$i]['id'];
+				unset($listings[$i]);
+				$listings[$i]['id'] = $id;
+			}
+
+			$listings[$i]['photos'] = array_map(function ($in)
 			{
 				return (array) $in;
-			}, $photos['rows']);
-			//unset($listings[$i]);
+			}, $photos);
 
-			$listings[$i] = $listing[$i];
-			$listing[$i]  = json_encode($listing[$i]);
+			//copy the array
+			$listing[$i] = json_encode($listings[$i]);
 
 			$html .= '<div class="clearfix row">';
 			$html .= '<dl class="dl-horizontal">';
@@ -119,14 +111,31 @@ Route::get('/api/v1/listings/sortprice/{lpsort?}/sortdate/{ldsort?}/pageid/{page
 			$html_imgs = '';
 		}
 	}
+	//$listing['args'] = $listingArgs;
+	array_push($listing, $html . print_r($listingArgs, true));
 
-	array_push($listing, $html);
+	//	for ($i = 0; $i < count($listingArgs); $i++)
+	//	{
+	//		$args = $listingArgs[$i];
+	//
+	//		$stats = '<div class="clearfix row">';
+	//		$stats .= '<dl class="dl-horizontal">';
+	//		foreach($args as $key=>$val)
+	//		{
+	//			$stats .= '<dt class="clearfix">' . $key . '</dt>';
+	//			$stats .= '<dd class="clearfix" style="white-space:normal">' . $val . '</dd>';
+	//		}
+	//		$stats .= '</dl></div>';
+	//
+	//	}
+	//	array_push($listing, $stats);
+
+	//array_push($listing, json_encode(array('args'=>$listingArgs)));
 
 	$resp             = array();
 	$resp['type']     = 'print';
 	$resp['out']      = $listing;
 	$resp['callback'] = 'scrolltoprompt';
-
 
 	return response()->json($resp);
 

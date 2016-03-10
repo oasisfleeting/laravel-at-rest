@@ -56,16 +56,17 @@ class Listing extends Spnet
 	 *
 	 * @return string
 	 */
-	public static function queryWhere($ids = array())
+	public static function queryWhere($args = array())
 	{
-		if ($ids)
+		if ($args)
 		{
-			return " WHERE listings.id IN( " . implode(',', $ids) . " )";
+			return " WHERE listings.id IN( " . implode(',', $args) . " )";
 		}
 		else
 		{
 			return " WHERE listings.id > 0 ";
 		}
+		return "  WHERE listings.id IS NOT NULL ";
 	}
 
 	/**

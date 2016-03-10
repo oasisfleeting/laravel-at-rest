@@ -74,7 +74,7 @@ class ListingController extends Controller
 		//			            'global' => 1); //(isset($this->access['is_global']) ? $this->access['is_global'] : 0));
 		//
 		$sort        = 'id';
-		$order       = 'asc';
+		$order       = '';
 		$filter      = '';
 		$page        = 1;
 		$params      = array('page' => $page, 'limit' => 100, 'sort' => $sort, 'order' => $order, 'params' => $filter, 'global' => 1,);
