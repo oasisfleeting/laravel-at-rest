@@ -1,5 +1,35 @@
 ## Laravel PHP Framework
 
+Usage: Start by creating the database 
+
+`CREATE DATABASE laravelatrest`
+
+build your vendor repo using 
+
+`composer install`
+
+and the node libraries using 
+
+`gulp`
+
+then you can run the migraton
+
+`/home/oasisfleeting/web/public_html/laravel-at-rest#> php artisan migrate:install`
+
+
+as I didn't have time to fully integrate artisan commands into the user interface they have not been tested and are definitely
+not fully functional, but there is one custom artisan command that can be used to fetch and parse the inital xml needed for this
+application to run.
+
+`fetch:listings`
+
+eveything else can be done using the corresponding buttons or using the correct console commands. 
+
+            ~oasisfleeting.
+
+
+
+
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
 [![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
 [![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)

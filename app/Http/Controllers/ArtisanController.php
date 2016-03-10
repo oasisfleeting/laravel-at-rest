@@ -47,10 +47,11 @@ class ArtisanController extends Controller
 			if (in_array($cmd, $this->checkCommand(), true))
 			{
 				Artisan::call($cmd, $args = array());
-				$out        = Artisan::output();
-				$resp       = new \stdClass();
-				$resp->type = 'type';
-				$resp->out  = $out;
+				$out            = Artisan::output();
+				$resp           = new \stdClass();
+				$resp->type     = 'type';
+				$resp->out      = $out;
+				$resp->callback = 'scrolltoprompt';
 
 				return response()->json($resp);
 			}

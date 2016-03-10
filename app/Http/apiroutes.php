@@ -171,6 +171,10 @@ Route::get('/artisan/{cmd?}', function ($cmd = null)
 {
 
 	$art = new App\Http\Controllers\ArtisanController();
+	if(in_array($cmd,$art->checkCommand(),true)){
 
+		return $art->genericCommand($cmd);
+
+	}
 	return $art->$cmd($cmd);
 });

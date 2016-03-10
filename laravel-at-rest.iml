@@ -96,6 +96,7 @@
       <excludeFolder url="file://$MODULE_DIR$/resources/views/listingsphotos" />
       <excludeFolder url="file://$MODULE_DIR$/resources/views/user" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/anahkiasen/underscore-php" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-debugbar" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-ide-helper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bocharsky-bw/arrayzy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/classpreloader/classpreloader" />
@@ -128,6 +129,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/commonmark" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/oauth1-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/maximebf/debugbar" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mdwheele/fortune" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mews/captcha" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mockery/mockery" />
@@ -190,6 +192,7 @@
       <library name="PHP">
         <CLASSES>
           <root url="file://$MODULE_DIR$/vendor/anahkiasen/underscore-php" />
+          <root url="file://$MODULE_DIR$/vendor/barryvdh/laravel-debugbar" />
           <root url="file://$MODULE_DIR$/vendor/barryvdh/laravel-ide-helper" />
           <root url="file://$MODULE_DIR$/vendor/bocharsky-bw/arrayzy" />
           <root url="file://$MODULE_DIR$/vendor/classpreloader/classpreloader" />
@@ -222,6 +225,7 @@
           <root url="file://$MODULE_DIR$/vendor/league/commonmark" />
           <root url="file://$MODULE_DIR$/vendor/league/flysystem" />
           <root url="file://$MODULE_DIR$/vendor/league/oauth1-client" />
+          <root url="file://$MODULE_DIR$/vendor/maximebf/debugbar" />
           <root url="file://$MODULE_DIR$/vendor/mdwheele/fortune" />
           <root url="file://$MODULE_DIR$/vendor/mews/captcha" />
           <root url="file://$MODULE_DIR$/vendor/mockery/mockery" />
@@ -278,6 +282,7 @@
         <JAVADOC />
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/anahkiasen/underscore-php" />
+          <root url="file://$MODULE_DIR$/vendor/barryvdh/laravel-debugbar" />
           <root url="file://$MODULE_DIR$/vendor/barryvdh/laravel-ide-helper" />
           <root url="file://$MODULE_DIR$/vendor/bocharsky-bw/arrayzy" />
           <root url="file://$MODULE_DIR$/vendor/classpreloader/classpreloader" />
@@ -310,6 +315,7 @@
           <root url="file://$MODULE_DIR$/vendor/league/commonmark" />
           <root url="file://$MODULE_DIR$/vendor/league/flysystem" />
           <root url="file://$MODULE_DIR$/vendor/league/oauth1-client" />
+          <root url="file://$MODULE_DIR$/vendor/maximebf/debugbar" />
           <root url="file://$MODULE_DIR$/vendor/mdwheele/fortune" />
           <root url="file://$MODULE_DIR$/vendor/mews/captcha" />
           <root url="file://$MODULE_DIR$/vendor/mockery/mockery" />

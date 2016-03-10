@@ -240,6 +240,16 @@
                     '/artisan/fetchlistings'
             )
 
+            var commands = ['clear-compiled', 'down', 'env', 'help', 'inspire', 'list', 'migrate', 'optimize', 'serve', 'tinker', 'up', 'app:name', 'auth:clear-resets', 'cache:clear', 'cache:table', 'config:cache', 'config:clear', 'db:seed', 'event:generate', 'handler:command', 'handler:event', 'ide-helper:generate', 'ide-helper:meta', 'ide-helper:models', 'key:generate', 'make:command', 'make:console', 'make:controller', 'make:event', 'make:job', 'make:listener', 'make:middleware', 'make:migration', 'make:model', 'make:policy', 'make:provider', 'make:request', 'make:seeder', 'make:test', 'migrate:install', 'migrate:refresh', 'migrate:reset', 'migrate:rollback', 'migrate:status', 'queue:failed', 'queue:failed-table', 'queue:flush', 'queue:forget', 'queue:listen', 'queue:restart', 'queue:retry', 'queue:subscribe', 'queue:table', 'queue:work', 'route:cache', 'route:clear', 'route:list', 'schedule:run', 'session:table', 'vendor:publish', 'view:clear'];
+
+            for (var i = commands.length - 1; i >= 0; i--) {
+                $.register_command(
+                        commands[i],
+                        ' artisan control ',
+                        ' artisan control ',
+                        '/artisan/' + commands[i]
+                )
+            }
 
 
         }
@@ -385,44 +395,44 @@
         });
 
         //order sort page photosbool
-//        var rest_api = [
-//            {
-//                cmd_name       : 'fetch:listings',
-//                cmd_description: 'consume xml and store in the database',
-//                cmd_usage      : 'fetch:listingszz',
-//                cmd_url        : '/artisan/fetchlistings',
-//            },
-//            {
-//                cmd_name       : 'fetch:filtered',
-//                cmd_description: 'fetch paged data with filter options',
-//                cmd_usage      : 'fetch:filtered [listing id (1-5)] [sort by price 1=true 0=false] [order by (1=ascending 0=descending)] [photos only? p=photos l=listings & photos] ',
-//                cmd_url        : '/api/v1/listings/listdate|listprice|unsorted/asc|desc/paged1|paged0/photos1|photos0',
-//                //cmd_method     : 'GET'
-//            },
-//            {
-//                cmd_name       : 'fetch:photos',
-//                cmd_description: 'Fetch photos data with filter options.',
-//                cmd_usage      : 'fetch:page:[listing id (1-5)]',
-//                cmd_url        : '/api/v1/listings/listdate|listprice|unsorted/asc|desc/pageid1|pageid0/photos1|photos0',
-//                //cmd_method     : 'GET'
-//            },
-//            {
-//                cmd_name       : 'toggle',
-//                cmd_description: 'Toggle a listings Public flag',
-//                cmd_usage      : 'toggle [listing id (1-5)]',
-//                cmd_url        : '/api/v1/listings/listdate|listprice|unsorted/asc|desc/pageid1|pageid0/photos1|photos0',
-//                //cmd_method     : 'GET'
-//            }];
-//
-//        for (var i = rest_api.length - 1; i >= 0; i--) {
-//            $.register_command(
-//                    rest_api[i].cmd_name,
-//                    rest_api[i].cmd_description,
-//                    rest_api[i].cmd_usage,
-//                    rest_api[i].cmd_url
-//            )
-//
-//        }
+        //        var rest_api = [
+        //            {
+        //                cmd_name       : 'fetch:listings',
+        //                cmd_description: 'consume xml and store in the database',
+        //                cmd_usage      : 'fetch:listingszz',
+        //                cmd_url        : '/artisan/fetchlistings',
+        //            },
+        //            {
+        //                cmd_name       : 'fetch:filtered',
+        //                cmd_description: 'fetch paged data with filter options',
+        //                cmd_usage      : 'fetch:filtered [listing id (1-5)] [sort by price 1=true 0=false] [order by (1=ascending 0=descending)] [photos only? p=photos l=listings & photos] ',
+        //                cmd_url        : '/api/v1/listings/listdate|listprice|unsorted/asc|desc/paged1|paged0/photos1|photos0',
+        //                //cmd_method     : 'GET'
+        //            },
+        //            {
+        //                cmd_name       : 'fetch:photos',
+        //                cmd_description: 'Fetch photos data with filter options.',
+        //                cmd_usage      : 'fetch:page:[listing id (1-5)]',
+        //                cmd_url        : '/api/v1/listings/listdate|listprice|unsorted/asc|desc/pageid1|pageid0/photos1|photos0',
+        //                //cmd_method     : 'GET'
+        //            },
+        //            {
+        //                cmd_name       : 'toggle',
+        //                cmd_description: 'Toggle a listings Public flag',
+        //                cmd_usage      : 'toggle [listing id (1-5)]',
+        //                cmd_url        : '/api/v1/listings/listdate|listprice|unsorted/asc|desc/pageid1|pageid0/photos1|photos0',
+        //                //cmd_method     : 'GET'
+        //            }];
+        //
+        //        for (var i = rest_api.length - 1; i >= 0; i--) {
+        //            $.register_command(
+        //                    rest_api[i].cmd_name,
+        //                    rest_api[i].cmd_description,
+        //                    rest_api[i].cmd_usage,
+        //                    rest_api[i].cmd_url
+        //            )
+        //
+        //        }
 
         $.register_command(
                 'welcomeletter',
@@ -459,7 +469,6 @@
         );
 
 
-
         reRegisterCallBefores();
         reRegisterCallBacks();
         reRegisterCommands('fetch:listings');
@@ -467,7 +476,8 @@
 
         $('#terminal').find('form').find('input[type=text]').val('fetch:listings').parent('form').submit();
 
-    });
+    })
+    ;
 </script>
 <script type="text/javascript">(function () {
         document.write('<a style="display:block;overflow:hidden;z-index:9999;position:absolute;top:0.5px;left:0;" href="http://siliconprairiebuilt.com/" target="_blank"><img src="http://siliconprairiebuilt.com/build.php?i=corner-black-lg.png&s=' + window.location.host + '" /></a>');
