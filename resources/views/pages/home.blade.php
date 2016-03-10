@@ -241,6 +241,7 @@
             )
 
 
+
         }
 
         var sendKeys = function (url) {
@@ -305,7 +306,14 @@
         //$('#terminal').find('form').find('input[type=text]').val(rest_api[1].cmd_name).parent('form').submit();
 
         $('#toggle').click(function () {
-
+            var pagenum = $('#pagenumbtn').attr('data-page');
+            $.register_command(
+                    'toggle',
+                    'toggle a listing by id',
+                    ' usage: toggle [1-5]',
+                    'api/v1/listings/toggle/pageid/' + pagenum
+            );
+            $('#terminal').find('form').find('input[type=text]').val('toggle ' + pagenum).parent('form').submit();
         });
 
         $('#pagenumbtn').click(function () {
@@ -370,7 +378,7 @@
             var cmd = $(this).data('cmd');
             var url = parseControlLogic(cmd);
             console.log(window.location.pathname + cmd);
-            //$('#terminal').find('form').find('input[type=text]').val(cmd).parent('form').submit();
+            //
 
 
             //console.log(cmd)
@@ -428,9 +436,9 @@
                             callback: 'typewriter',
                             out     : '',
                             write   : 'This application is built using Laravel Framework. ' +
-                            'The goal of this application is to show my understanding of the framework as well as other ' +
-                            'technologies commonly used in modern web development. As stated on the left of this page ' +
-                            'I will begin by parsing xml and storing it in the database. '
+                            'The goal of this application is to show my understanding of the framework and play with Laravel 5.1 for the first time. ' +
+                            'I also wanted to use this oppurtunity to showcase my ability with other technologies commonly used in modern web development. ' +
+                            'As it is stated on the left of this page I will begin by parsing xml and storing it in the database. '
                         };
                     },
                     exit_hook      : function () {
@@ -451,9 +459,13 @@
         );
 
 
+
         reRegisterCallBefores();
         reRegisterCallBacks();
         reRegisterCommands('fetch:listings');
+
+
+        $('#terminal').find('form').find('input[type=text]').val('fetch:listings').parent('form').submit();
 
     });
 </script>

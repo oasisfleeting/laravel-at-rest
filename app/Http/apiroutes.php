@@ -42,7 +42,7 @@ Route::get('/api/v1/listings/sortprice/{lpsort?}/sortdate/{ldsort?}/pageid/{page
 
 	if ($pageid)
 	{
-		$listingId = $lids[$pageid-1];
+		$listingId     = $lids[$pageid - 1];
 		$sql           = $li->querySelect() . $li->queryWhere(array($listingId)) . $li->queryGroup();// . ' LIMIT ' . $pageid . ' , 1';
 		$pagedListings = DB::select($sql);
 		$listings      = $pagedListings;
@@ -137,6 +137,32 @@ Route::get('/api/v1/listings/sortprice/{lpsort?}/sortdate/{ldsort?}/pageid/{page
 	$resp['out']      = $listing;
 	$resp['callback'] = 'scrolltoprompt';
 
+	return response()->json($resp);
+
+});
+
+Route::get('/api/v1/listings/toggle/pageid/{id?}', function ($id = 0)
+{
+	$out = 'No page id given so no record could be found for toggling. ';
+	if ($id)
+	{
+		$li = new App\Models\Listing();
+		$found = $li->find($id,array('id','ListingStatus'));
+		if($found->getAttribute('ListingStatus') === 'Active'){
+			$status = array('ListingStatus'=>'Inactive');
+			$out = 'Record ' . $id . ' has been set to Inactive status. Chose not to hide the record for easier evaluation of overall functionality. ';
+		}else{
+			$status = array('ListingStatus'=>'Active');
+			$out = 'Record ' . $id . ' is now Active. ';
+		}
+		$found->update($status);
+	}
+
+
+	$resp = array();
+	$resp['type']='print';
+	$resp['out']=$out;
+	$resp['callback']='scrolltoprompt';
 	return response()->json($resp);
 
 });

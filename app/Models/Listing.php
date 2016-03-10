@@ -1,4 +1,4 @@
-<?php  namespace App\Models;
+<?php namespace App\Models;
 
 /**
  * Class Listing
@@ -7,7 +7,7 @@
  */
 class Listing extends Spnet
 {
-
+	public $timestamps = false;
 	protected $table = 'listings';
 	protected $primaryKey = 'id';
 	protected $fillable = array('id', 'FullStreetAddress', 'City', 'StateOrProvince', 'PostalCode', 'Country', 'DiscloseAddress', 'ListPrice', 'ListPricePublic', 'ListingURL', 'Bedrooms', 'Bathrooms', 'PropertyType', 'ListingKey', 'ListingCategory', 'ListingStatus', 'ListingDescription', 'MlsId', 'MlsName', 'MlsNumber');
@@ -66,6 +66,7 @@ class Listing extends Spnet
 		{
 			return " WHERE listings.id > 0 ";
 		}
+
 		return "  WHERE listings.id IS NOT NULL ";
 	}
 
