@@ -23,16 +23,16 @@ class ArtisanController extends Controller
 	public function index()
 	{
 
-//		switch ($cmd)
-//		{
-//			//returns arrays or arrays of object requires special parsing for output
-//			case 'fetchlistings':
-//				return $this->$cmd($cmd);
-//				break;
-//			default:
-//				return $this->genericCommand($cmd);
-//				break;
-//		}
+		//		switch ($cmd)
+		//		{
+		//			//returns arrays or arrays of object requires special parsing for output
+		//			case 'fetchlistings':
+		//				return $this->$cmd($cmd);
+		//				break;
+		//			default:
+		//				return $this->genericCommand($cmd);
+		//				break;
+		//		}
 	}
 
 	/**
@@ -83,7 +83,6 @@ class ArtisanController extends Controller
 		$spListing      = new \App\Models\Listing();
 		$spListingPhoto = new \App\Models\Listingsphotos();
 		$rows           = $spListing->getRows($params);
-		$uniqueid       = 'sect_' . uniqid('scrollto', false);
 		$html_imgs      = '';
 		$html           = '';
 
@@ -99,7 +98,6 @@ class ArtisanController extends Controller
 				$val       = $photos[$j]->MediaURL;
 				$row->$key = '<img style="width:50px;" src="' . $val . '"/>';
 			}
-			//$html = '<section class="clearfix">';
 			$html .= '<div class="clearfix row">';
 			$html .= '<dl class="dl-horizontal">';
 
@@ -108,7 +106,6 @@ class ArtisanController extends Controller
 			{
 				if (strpos($key, 'photo') !== false)
 				{
-					//$html .= '<dt>' . $key . '</dt>';
 					$html_imgs .= '<span class="col-md-1">' . $val . '</span>';
 				}
 				else
@@ -123,27 +120,16 @@ class ArtisanController extends Controller
 			$html .= '</div>';
 			$html_imgs = '';
 
-			//$html .= '</div>';
-			//$html .= '</section>';
-
 			$rows['rows'][$i] = $html;
 			$html             = '';
 
 		}
-		#terminal > div.cmd_terminal_content > div:nth-child(2) > div > section:nth-child(5)
-		//$out = $rows['rows'];
-		//$out = \SiteHelpers::gridClass()
-
-		$resp       = new \stdClass();
-		$resp->type = 'print';
-		$out        = implode(' ', $rows['rows']);// . "<div class='clearfix'><br/>&nbsp;<br/></div>";
-		//$out .= "<script>$('.cmd_terminal_content').animate({scrollTop: $('div.contentappendedtwo > div:last').position().top}, 5000).promise().always( function () { console.log($(this)); });</script>";
-		//.animate({scrollTop:$('#scrolltome').last().position().top},1000);</script>";
+		$resp           = new \stdClass();
+		$resp->type     = 'print';
+		$out            = implode(' ', $rows['rows']);
 		$resp->out      = $out;
 		$resp->callback = 'scrolltoprompt';
-		//$resp->exit = 'true';
-		//echo "<pre>";
-		//print_r($rows['rows']);
+
 		return response()->json($resp);
 	}
 

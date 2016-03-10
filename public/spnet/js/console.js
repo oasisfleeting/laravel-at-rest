@@ -325,8 +325,7 @@
 						&& opt !== 'cmd_query' && opt !== 'cmd_token') {
 						cmd_opts[opt] = null;
 					}
-				}
-				;
+				};
 
 				// End loading.
 				loading.fadeOut(300);

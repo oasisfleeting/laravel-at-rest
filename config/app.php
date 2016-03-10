@@ -160,7 +160,7 @@ Laravel uses the Monolog PHP logging library. This gives
 		Laravel\Socialite\SocialiteServiceProvider::class,
 		GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 		Collective\Html\HtmlServiceProvider::class,
-		Orchestra\Parser\XmlServiceProvider::class,
+		//Barryvdh\Debugbar\ServiceProvider::class,
 
 	],
 
@@ -170,8 +170,7 @@ Laravel uses the Monolog PHP logging library. This gives
 	|--------------------------------------------------------------------------
 	|
 	| This array of class aliases will be registered when this application
-	| is started. However, 
-feel free to register as many as you wish as
+	| is started. However, feel free to register as many as you wish as
 	| the aliases are "lazy" loaded so they don't hinder performance.
 	|
 	*/
@@ -215,7 +214,7 @@ feel free to register as many as you wish as
 		'Captcha' => Mews\Captcha\Facades\Captcha::class,
 		'Socialize' => Laravel\Socialite\Facades\Socialite::class,
 		'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
-		'XmlParser' => Orchestra\Parser\Xml\Facade::class,
+		//'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
 	],
 

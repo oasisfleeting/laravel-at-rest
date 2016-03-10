@@ -142,65 +142,180 @@
         /* Start Ptty terminal */
         $('#terminal').Ptty();
 
-        var enterCommand = function (cmd) {
-            $('#terminal').find('form').find('input[type=text]').val(cmd).parent('form').submit();
+//        var enterCommand = function (cmd) {
+//            $('#terminal').find('form').find('input[type=text]').val(cmd).parent('form').submit();
+//        }
+
+        function reRegisterCallBefores() {
+            $.register_callbefore('typewriterbefore', function (data) {
+                var text_input = $('.cmd_terminal_prompt');
+                text_input.hide();
+                if (typeof data.write === 'string') {
+                    // decode special entities.
+                    var str = $('<div/>').html(data.write + ' ').text(),
+                            typebox = $('<div></div>').appendTo('.cmd_terminal_content'),
+                            i = 0,
+                            isTag,
+                            text;
+                    (function typewriter() {
+                        text = str.slice(0, ++i);
+                        if (text === str) return text_input.show();
+                        typebox.html(text);
+                        var char = text.slice(-1);
+                        if (char === '<') isTag = true;
+                        if (char === '>') isTag = false;
+                        if (isTag) return typewriter();
+                        setTimeout(typewriter, 40);
+                    }());
+                }
+                $('#terminal').find('input[type=text]').focus();
+            });
         }
 
-
-        $.register_command(
-                'type',
-                'type',
-                '',
-                {
-                    ps             : 'php artisan',
-                    start_hook     : function () {
-                        return {
-                            type    : 'print',
-                            callback: 'typewriter',
-                            out     : '',
-                            write   : 'babyshoes'
-                        };
-                    },
-                    exit_hook      : function () {
-                        return {
-                            type: 'print',
-                            out : 'Good Bye '
-                        };
-                    },
-                    dispatch_method: function (args) {
-                        return {
-                            type    : 'print',
-                            callback: 'typewriter',
-                            out     : '',
-                            write   : args.join(' ')
-                        };
-                    }
+        var reRegisterCallBacks = function () {
+            $.register_callback('typewriter', function (data) {
+                var text_input = $('.cmd_terminal_prompt');
+                text_input.hide();
+                if (typeof data.write === 'string') {
+                    // decode special entities.
+                    var str = $('<div/>').html(data.write + ' ').text(),
+                            typebox = $('<div></div>').appendTo('.cmd_terminal_content'),
+                            i = 0,
+                            isTag,
+                            text;
+                    (function typewriter() {
+                        text = str.slice(0, ++i);
+                        if (text === str) return text_input.show();
+                        typebox.html(text);
+                        var char = text.slice(-1);
+                        if (char === '<') isTag = true;
+                        if (char === '>') isTag = false;
+                        if (isTag) return typewriter();
+                        setTimeout(typewriter, 40);
+                    }());
                 }
-        );
+                $('#terminal').find('input[type=text]').focus();
+            });
+
+            $.register_callback('scrolltoprompt', function (data) {
+                $('#terminal').scrollTo('div.cmd_terminal_prompt', 1000, 'linear');
+            });
+        }
+
+        var reRegisterCommands = function (url) {
+            $.register_command(
+                    url,
+                    'send url to terminal for api result ',
+                    'api/v1/listings/sortprice/[asc | desc]/sortdate/[asc | desc]/pageid/[0-5][/photosonly]',
+                    {
+                        ps             : 'php artisan',
+                        start_hook     : function (url) {
+                            return {
+                                type    : 'print',
+                                callback: 'typewriterbefore',
+                                out     : url + ' before out ',
+                                write   : url.join(' ') + ' before write '
+                            }
+                        },
+                        exit_hook      : function () {
+                            return {
+                                type: 'print',
+                                out : 'Good Bye '
+                            };
+                        },
+                        dispatch_method: function (args) {
+                            return $.ajax({
+                                url     : args,
+                                data    : '',
+                                success : function (response) {
+                                    console.log(response);
+                                    return response;
+                                },
+                                dataType: 'json'
+                            });
+                        }
+                    }
+            );
+
+            $.register_command(
+                    'fetch:listings',
+                    'consume xml and store in the database',
+                    'fetch:listings',
+                    '/artisan/fetchlistings'
+            )
+
+
+        }
+
+        var sendKeys = function (url) {
+            $.flush_commands();
+            //reRegisterCallBacks();
+            //reRegisterCallBefores();
+            //reRegisterCommands(url);
+//            $.register_command(
+//                    'buildUrl',
+//                    '',
+//                    '',
+//                    url
+//                    //'/artisan/fetchlistings'
+//            )
+
+            var rest_api = [
+                {
+                    cmd_name       : 'fetch:listings',
+                    cmd_description: 'consume xml and store in the database',
+                    cmd_usage      : 'fetch:listingszz',
+                    cmd_url        : '/artisan/fetchlistings',
+                },
+                {
+                    cmd_name       : 'fetch:filtered',
+                    cmd_description: 'fetch paged data with filter options',
+                    cmd_usage      : 'fetch:filtered [listing id (1-5)] [sort by price 1=true 0=false] [order by (1=ascending 0=descending)] [photos only? p=photos l=listings & photos] ',
+                    cmd_url        : url,
+                    //cmd_method     : 'GET'
+                }];
+
+            for (var i = rest_api.length - 1; i >= 0; i--) {
+                $.register_command(
+                        rest_api[i].cmd_name,
+                        rest_api[i].cmd_description,
+                        rest_api[i].cmd_usage,
+                        rest_api[i].cmd_url
+                )
+
+            }
+
+
+            $('#terminal').find('form').find('input[type=text]').val('fetch:filtered').parent('form').submit();
+        }
+
 
         var parseControlLogic = function (cmd) {
             // listdate|listprice   - sortprice
             // asc|desc             - sortdate
             // paged[x]             - pagedbtn
             // photos[1|0]          - photosonly
-            var url = '/api/v1/listings/';
+            var url = 'api/v1/listings/';
             url += 'sortprice/' + $('#sortprice').attr('data-sort');
             url += '/sortdate/' + $('#sortdate').attr('data-sort');
-            url += '/pageid/'+ $('#pagenumbtn').attr('data-page');
-            if($('#photosonly').attr('data-photosonly') == 1) {
+            url += '/pageid/' + $('#pagenumbtn').attr('data-page');
+            if ($('#photosonly').attr('data-photosonly') == 1) {
                 url += '/photosonly'; // + $('#photosonly').attr('data-photosonly');
             }
-            console.log(url);
+            console.log(window.location + url);
+            sendKeys(url);
         };
 
-        $('#toggle').click(function(){
+        //$('#terminal').find('form').find('input[type=text]').val(rest_api[1].cmd_name).parent('form').submit();
 
-           //$('#toggleicon').class
+        $('#toggle').click(function () {
+
+            //$('#toggleicon').class
         });
 
-        $('#pagenumbtn').click(function(){
+        $('#pagenumbtn').click(function () {
             parseControlLogic('');
-            if($('#pagedbtn').attr('data-paged') == 1) {
+            if ($('#pagedbtn').attr('data-paged') == 1) {
                 var num = parseInt($(this).attr('data-page'));
                 num += 1;
                 $(this).attr('data-page', num);
@@ -242,6 +357,11 @@
             else {
                 $(this).text($(this).text().replace('On ', 'Off '));
                 $(this).attr('data-paged', '0');
+
+                //reset pager
+                $('#pagenumbtn').attr('data-pagenum', 0);
+                $('#pagenumbtn').text('Page #' + 0 + ' >>');
+
             }
         });
 
@@ -250,55 +370,50 @@
             var url = parseControlLogic(cmd);
             console.log(window.location.pathname + cmd);
             $('#terminal').find('form').find('input[type=text]').val(cmd).parent('form').submit();
-            console.log(cmd)
+
+
+            //console.log(cmd)
         });
 
         //order sort page photosbool
-        var rest_api = [
-            {
-                cmd_name       : 'fetch:listings',
-                cmd_description: 'consume xml and store in the database',
-                cmd_usage      : 'fetch:listingszz',
-                cmd_url        : '/artisan/fetchlistings',
-            },
-            {
-                cmd_name       : 'fetch:filtered',
-                cmd_description: 'fetch paged data with filter options',
-                cmd_usage      : 'fetch:filtered [listing id (1-5)] [sort by price 1=true 0=false] [order by (1=ascending 0=descending)] [photos only? p=photos l=listings & photos] ',
-                cmd_url        : '/api/v1/listings/listdate|listprice|unsorted/asc|desc/paged1|paged0/photos1|photos0',
-                //cmd_method     : 'GET'
-            },
-            {
-                cmd_name       : 'fetch:photos',
-                cmd_description: 'Fetch photos data with filter options.',
-                cmd_usage      : 'fetch:page:[listing id (1-5)]',
-                cmd_url        : '/api/v1/listings/listdate|listprice|unsorted/asc|desc/pageid1|pageid0/photos1|photos0',
-                //cmd_method     : 'GET'
-            },
-            {
-                cmd_name       : 'toggle',
-                cmd_description: 'Toggle a listings Public flag',
-                cmd_usage      : 'toggle [listing id (1-5)]',
-                cmd_url        : '/api/v1/listings/listdate|listprice|unsorted/asc|desc/pageid1|pageid0/photos1|photos0',
-                //cmd_method     : 'GET'
-            }];
-
-        for (var i = rest_api.length - 1; i >= 0; i--) {
-            $.register_command(
-                    rest_api[i].cmd_name,
-                    rest_api[i].cmd_description,
-                    rest_api[i].cmd_usage,
-                    rest_api[i].cmd_url
-            )
-
-        }
-
-        /* Wrapper function to add listeners for button actions */
-        //function button_listeners() {
-
-
-        //}
-
+//        var rest_api = [
+//            {
+//                cmd_name       : 'fetch:listings',
+//                cmd_description: 'consume xml and store in the database',
+//                cmd_usage      : 'fetch:listingszz',
+//                cmd_url        : '/artisan/fetchlistings',
+//            },
+//            {
+//                cmd_name       : 'fetch:filtered',
+//                cmd_description: 'fetch paged data with filter options',
+//                cmd_usage      : 'fetch:filtered [listing id (1-5)] [sort by price 1=true 0=false] [order by (1=ascending 0=descending)] [photos only? p=photos l=listings & photos] ',
+//                cmd_url        : '/api/v1/listings/listdate|listprice|unsorted/asc|desc/paged1|paged0/photos1|photos0',
+//                //cmd_method     : 'GET'
+//            },
+//            {
+//                cmd_name       : 'fetch:photos',
+//                cmd_description: 'Fetch photos data with filter options.',
+//                cmd_usage      : 'fetch:page:[listing id (1-5)]',
+//                cmd_url        : '/api/v1/listings/listdate|listprice|unsorted/asc|desc/pageid1|pageid0/photos1|photos0',
+//                //cmd_method     : 'GET'
+//            },
+//            {
+//                cmd_name       : 'toggle',
+//                cmd_description: 'Toggle a listings Public flag',
+//                cmd_usage      : 'toggle [listing id (1-5)]',
+//                cmd_url        : '/api/v1/listings/listdate|listprice|unsorted/asc|desc/pageid1|pageid0/photos1|photos0',
+//                //cmd_method     : 'GET'
+//            }];
+//
+//        for (var i = rest_api.length - 1; i >= 0; i--) {
+//            $.register_command(
+//                    rest_api[i].cmd_name,
+//                    rest_api[i].cmd_description,
+//                    rest_api[i].cmd_usage,
+//                    rest_api[i].cmd_url
+//            )
+//
+//        }
 
         $.register_command(
                 'welcomeletter',
@@ -334,65 +449,10 @@
                 }
         );
 
-        // Typewriter effect callback
-        $.register_callback('typewriter', function (data) {
-            var text_input = $('.cmd_terminal_prompt');
-            text_input.hide();
-            if (typeof data.write === 'string') {
-                // decode special entities.
-                var str = $('<div/>').html(data.write + ' ').text(),
-                        typebox = $('<div></div>').appendTo('.cmd_terminal_content'),
-                        i = 0,
-                        isTag,
-                        text;
-                (function typewriter() {
-                    text = str.slice(0, ++i);
-                    if (text === str) return text_input.show();
-                    typebox.html(text);
-                    var char = text.slice(-1);
-                    if (char === '<') isTag = true;
-                    if (char === '>') isTag = false;
-                    if (isTag) return typewriter();
-                    setTimeout(typewriter, 40);
-                }());
-            }
-            $('#terminal').find('input[type=text]').focus();
-        });
 
-
-        function load_callbefores() {
-            $.register_callbefore(
-                    'register',
-                    function (cmd) {
-                        var err = false,
-                                cmd_opts = ['-u', '-e', '-p'],
-                                args = $.tokenize(cmd, cmd_opts);
-
-                        // replace password
-                        if (typeof args['-p'] !== 'undefined') {
-                            var stars = '*'.repeat(args['-p'].length),
-                                    safe = cmd.replace(RegExp('\\s' + args['-p'], "g"), ' ' + stars);
-                            $.set_command_option({cmd_in: safe});
-                        }
-
-                        err = validate_registration(cmd_opts, args);
-                        if (err) {
-                            // ouput errors
-                            $.set_command_option({cmd_out: err});
-                            cmd = false;
-                        }
-
-                        return cmd;
-                    }
-            );
-        }
-
-
-        $.register_callback('scrolltoprompt', function (data) {
-            $('#terminal').scrollTo('div.cmd_terminal_prompt', 1000, 'linear');
-        });
-
-        //enterCommand('welcomeletter');
+        reRegisterCallBefores();
+        reRegisterCallBacks();
+        reRegisterCommands('fetch:listings');
 
     });
 </script>

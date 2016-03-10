@@ -59,7 +59,13 @@ class NotificationController extends Controller
 		$filter = (!is_null($request->input('search')) ? $this->buildSearch() : '');
 
 		$page   = $request->input('page', 1);
-		$params = array('page' => $page, 'limit' => (!is_null($request->input('rows')) ? filter_var($request->input('rows'), FILTER_VALIDATE_INT) : static::$per_page), 'sort' => $sort, 'order' => $order, 'params' => $filter, 'global' => (isset($this->access['is_global']) ? $this->access['is_global'] : 0));
+		$params = array('page' => $page,
+		                'limit' => (!is_null($request->input('rows')) ? filter_var($request->input('rows'), FILTER_VALIDATE_INT) : static::$per_page),
+		                'sort' => $sort,
+		                'order' => $order,
+		                'params' => $filter,
+		                'global' => (isset($this->access['is_global']) ? $this->access['is_global'] : 0)
+		);
 		// Get Query 
 		$results = $this->model->getRows($params);
 

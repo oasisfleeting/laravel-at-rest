@@ -36,6 +36,7 @@ class Spnet extends Model
 		$result = \DB::select(self::querySelect() . self::queryWhere() . "
 				{$params} " . self::queryGroup() . " {$orderConditional}  {$limitConditional} ");
 
+
 		if ($key == '')
 		{
 			$key = '*';
