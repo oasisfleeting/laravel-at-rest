@@ -8,11 +8,11 @@ build your vendor repo using
 
 `composer install`
 
-and the node libraries using 
+and 
 
 `gulp`
 
-then you can run the migraton
+then run the migraton
 
 `/home/oasisfleeting/web/public_html/laravel-at-rest#> php artisan migrate:install`
 
