@@ -5,16 +5,38 @@ Usage: Start by creating the database
 `CREATE DATABASE laravelatrest`
 
 build your vendor repo using 
-
 `composer install`
-
 and 
-
 `npm install package.json --save-dev`
 
-then run the migraton
+using dotenv: to change the database connection parameters
+`php artisan env:list`
 
-`/home/oasisfleeting/web/public_html/laravel-at-rest#> php artisan migrate:install`
+
+```bash
+# Create or edit an entry in your .env file:
+$ php artisan env:set {key} {value} [--line-break|-L]
+# Add the --line-break (or -L) option to insert a line break before the entry.
+```
+
+```bash
+# Delete an entry from your .env file:
+$ php artisan env:delete {key}
+```
+
+```bash
+# Show the value of the given key from your .env file:
+$ php artisan env:get {key}
+```
+
+```bash
+# Show the entire .env file:
+$ php artisan env:list
+```
+
+
+then run the migraton
+`php artisan migrate:install`
 
 
 as I didn't have time to fully integrate artisan commands into the user interface they have not been tested and are definitely
