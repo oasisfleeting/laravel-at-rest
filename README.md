@@ -10,7 +10,7 @@ build your vendor repo using
 
 and 
 
-`gulp`
+`npm install package.json`
 
 then run the migraton
 
