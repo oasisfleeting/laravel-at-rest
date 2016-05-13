@@ -14,7 +14,6 @@
     "mews/captcha": "~2.0",
     "laravel/socialite": "~2.0",
     "graham-campbell/markdown": "~3.1",
-    "preemiere/laravel-ide-helper": "dev-master",
     "orchestra/parser": "~3.0",
     "bocharsky-bw/arrayzy": "^0.5.1",
     "wellrested/wellrested": "3.0.1",
