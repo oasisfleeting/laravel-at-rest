@@ -2,16 +2,29 @@
 
 Usage: Start by creating the database 
 
-`CREATE DATABASE laravelatrest`
+```bash
+$ mysql -uroot -p
+mysql> CREATE DATABASE laravelatrest;
+mysql> quit;
+```
 
-build your vendor repo using 
-`composer install`
-and 
-`npm install package.json --save-dev`
+PHP Dependencies
+```bash
+# call in our dependencies
+$ composer install
+```
+.js Helpers
+```bash
+# nodejs dependencies --save-dev flag installs 
+# locally opposed to globally
+$ npm install package.json --save-dev
+```
 
 using dotenv: to change the database connection parameters
-`php artisan env:list`
-
+```bash
+# show the environmentals
+$ php artisan env:list
+```
 
 ```bash
 # Create or edit an entry in your .env file:
@@ -29,14 +42,11 @@ $ php artisan env:delete {key}
 $ php artisan env:get {key}
 ```
 
-```bash
-# Show the entire .env file:
-$ php artisan env:list
-```
-
-
 then run the migraton
-`php artisan migrate:install`
+```
+# migration will create your database and seed the values for you 
+$ php artisan migrate:install
+```
 
 
 as I didn't have time to fully integrate artisan commands into the user interface they have not been tested and are definitely
