@@ -10,7 +10,7 @@ build your vendor repo using
 
 and 
 
-`npm install package.json`
+`npm install package.json --save-dev`
 
 then run the migraton
 
